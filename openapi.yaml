@@ -1,0 +1,266 @@
+openapi: 3.0.3
+info:
+  title: Task Manager API
+  version: 1.0.0
+  description: API REST para gerenciamento de tarefas de uma To-Do List.
+servers:
+  - url: /
+    description: Servidor atual da aplicacao. Em desenvolvimento, o Vite encaminha /api para o backend configurado.
+tags:
+  - name: Tasks
+    description: Operacoes para gerenciamento de tarefas.
+paths:
+  /api/tasks:
+    get:
+      tags:
+        - Tasks
+      summary: Lista todas as tarefas
+      operationId: listTasks
+      responses:
+        '200':
+          description: Lista de tarefas retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+              example:
+                - id: 1
+                  title: Revisar contrato OpenAPI
+                  completed: false
+                  createdAt: '2026-07-29T18:30:00Z'
+                - id: 2
+                  title: Implementar validacao no backend
+                  completed: true
+                  createdAt: '2026-07-29T19:00:00Z'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      tags:
+        - Tasks
+      summary: Cria uma nova tarefa
+      operationId: createTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+            example:
+              title: Revisar contrato OpenAPI
+      responses:
+        '201':
+          description: Tarefa criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              example:
+                id: 3
+                title: Revisar contrato OpenAPI
+                completed: false
+                createdAt: '2026-07-29T20:15:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /api/tasks/{id}/toggle:
+    patch:
+      tags:
+        - Tasks
+      summary: Alterna o status de conclusao de uma tarefa
+      operationId: toggleTask
+      parameters:
+        - $ref: '#/components/parameters/TaskId'
+      responses:
+        '200':
+          description: Tarefa atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              example:
+                id: 1
+                title: Revisar contrato OpenAPI
+                completed: true
+                createdAt: '2026-07-29T18:30:00Z'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /api/tasks/{id}:
+    delete:
+      tags:
+        - Tasks
+      summary: Remove uma tarefa
+      operationId: deleteTask
+      parameters:
+        - $ref: '#/components/parameters/TaskId'
+      responses:
+        '204':
+          description: Tarefa removida com sucesso
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  parameters:
+    TaskId:
+      name: id
+      in: path
+      required: true
+      description: Identificador unico da tarefa.
+      schema:
+        type: integer
+        format: int64
+        minimum: 1
+        example: 1
+      example: 1
+  schemas:
+    Task:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - title
+        - completed
+        - createdAt
+      properties:
+        id:
+          type: integer
+          format: int64
+          minimum: 1
+          description: Identificador unico da tarefa.
+          example: 1
+        title:
+          type: string
+          minLength: 3
+          maxLength: 100
+          description: Titulo descritivo da tarefa.
+          example: Revisar contrato OpenAPI
+        completed:
+          type: boolean
+          description: Indica se a tarefa foi concluida.
+          example: false
+        createdAt:
+          type: string
+          format: date-time
+          description: Data e hora de criacao da tarefa em UTC.
+          example: '2026-07-29T18:30:00Z'
+    CreateTaskRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          minLength: 3
+          maxLength: 100
+          pattern: '^(?=.*\S).{3,100}$'
+          description: Titulo obrigatorio da tarefa. Equivalente a @NotBlank e @Size(min = 3, max = 100).
+          example: Revisar contrato OpenAPI
+    InvalidParam:
+      type: object
+      additionalProperties: false
+      required:
+        - name
+        - reason
+      properties:
+        name:
+          type: string
+          description: Nome do campo, parametro ou atributo invalido.
+          example: title
+        reason:
+          type: string
+          description: Motivo pelo qual o valor informado e invalido.
+          example: must not be blank and size must be between 3 and 100
+    ProblemDetails:
+      type: object
+      additionalProperties: true
+      required:
+        - type
+        - title
+        - status
+        - detail
+        - instance
+      properties:
+        type:
+          type: string
+          format: uri
+          description: URI que identifica o tipo do problema.
+          example: https://api.task-manager.local/problems/validation-error
+        title:
+          type: string
+          description: Resumo curto e legivel do problema.
+          example: Validation failed
+        status:
+          type: integer
+          format: int32
+          description: Codigo HTTP associado ao erro.
+          example: 400
+        detail:
+          type: string
+          description: Descricao detalhada e especifica da ocorrencia.
+          example: The request body contains invalid fields.
+        instance:
+          type: string
+          description: Caminho da requisicao em que o problema ocorreu.
+          example: /api/tasks
+        invalidParams:
+          type: array
+          description: Lista de campos ou parametros invalidos para erros de validacao.
+          items:
+            $ref: '#/components/schemas/InvalidParam'
+          example:
+            - name: title
+              reason: must not be blank and size must be between 3 and 100
+        timestamp:
+          type: string
+          format: date-time
+          description: Data e hora em UTC em que o erro foi gerado.
+          example: '2026-07-29T20:20:00Z'
+  responses:
+    BadRequest:
+      description: Requisicao invalida.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          example:
+            type: https://api.task-manager.local/problems/validation-error
+            title: Validation failed
+            status: 400
+            detail: The request body contains invalid fields.
+            instance: /api/tasks
+            invalidParams:
+              - name: title
+                reason: must not be blank and size must be between 3 and 100
+            timestamp: '2026-07-29T20:20:00Z'
+    NotFound:
+      description: Recurso nao encontrado.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          example:
+            type: https://api.task-manager.local/problems/task-not-found
+            title: Task not found
+            status: 404
+            detail: Task with id 99 was not found.
+            instance: /api/tasks/99
+            timestamp: '2026-07-29T20:25:00Z'
+    InternalServerError:
+      description: Erro interno inesperado.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          example:
+            type: https://api.task-manager.local/problems/internal-server-error
+            title: Internal server error
+            status: 500
+            detail: An unexpected error occurred while processing the request.
+            instance: /api/tasks
+            timestamp: '2026-07-29T20:30:00Z'
