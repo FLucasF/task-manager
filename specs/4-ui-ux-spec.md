@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Definir instrucoes rigorosas para construcao da interface React 18 + Vite + TypeScript do Task Manager, com foco em dark mode elegante, consistencia visual via Tailwind CSS, micro-interacoes previsiveis, baixa carga cognitiva e acessibilidade WCAG 2.1 nivel AA.
+Definir instrucoes rigorosas para construcao da interface React 19 + Vite 7 + TypeScript do Task Manager, com foco em dark mode elegante, consistencia visual via Tailwind CSS, micro-interacoes previsiveis, baixa carga cognitiva e acessibilidade WCAG 2.1 nivel AA.
 
 ## 0. Pre-requisito de Setup Frontend
 

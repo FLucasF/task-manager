@@ -4,6 +4,7 @@
 
 - [ ] Implementar o To-Do List Full Stack do zero funcional, alinhado ao contrato canonico `openapi.yaml`.
 - [ ] Manter `openapi.yaml` como fonte da verdade para endpoints, DTOs, validacoes e ProblemDetails.
+- [ ] Usar `specs/1-architecture-spec.md`, `specs/3-testing-strategy.md` e `specs/4-ui-ux-spec.md` como documentacao complementar de arquitetura, testes e UI/UX.
 - [ ] Executar a ordem backend obrigatoria antes dos testes: Entity -> Repository -> Service -> Controller/DTOs -> Exception Handler -> Testes.
 - [ ] Preparar Tailwind no frontend antes de criar componentes React.
 - [ ] Separar responsabilidades entre `dev` e `qa`.
@@ -12,10 +13,10 @@
 
 ## Fase 0 - Alinhamento Inicial
 
-- [ ] `dev` - Confirmar que `openapi.yaml` da raiz e `.aiox-core/development/agents/architect/specs/2-openapi.yaml` permanecem sincronizados.
+- [ ] `dev` - Confirmar que `openapi.yaml` da raiz e o unico contrato OpenAPI canonico do projeto.
   - Cobertura de teste: validar parsing YAML e conferir `CreateTaskRequest.title` com `minLength: 3`, `maxLength: 100` e `application/problem+json`.
 
-- [ ] `dev` - Revisar `stack.md` e registrar divergencia controlada: stack informa React 19/Vite 7, specs mencionam React 18/Vite/TS; usar versoes existentes do projeto salvo decisao contraria.
+- [ ] `dev` - Confirmar que as specs seguem o stack canonico do projeto: React 19, Vite 7, Java 21 e Spring Boot 4.1.x.
   - Cobertura de teste: nenhuma automatizada; evidencia por checklist no PR.
 
 - [ ] `qa` - Definir matriz minima de aceite com endpoints, estados UI, acessibilidade e fluxos E2E.
@@ -23,7 +24,7 @@
 
 ## Fase 1 - Backend Base e Camadas
 
-- [ ] `dev` - Ajustar dependencias Maven para suportar Spring Data JPA, H2 em testes/desenvolvimento e Bean Validation, preservando Java 21 e Spring Boot 3.
+- [ ] `dev` - Ajustar dependencias Maven para suportar Spring Data JPA, H2 em testes/desenvolvimento e Bean Validation, preservando Java 21 e Spring Boot 4.1.x.
   - Cobertura de teste: `mvn test` deve subir o contexto Spring sem falhas.
 
 - [ ] `dev` - Criar Entity JPA `Task` com `id`, `title`, `completed`, `createdAt`.
@@ -62,7 +63,7 @@
   - Cobertura de teste: persistencia real na base em memoria para criar, listar, alternar e excluir.
 
 - [ ] `qa` - Criar ou revisar `TaskServiceTest` com JUnit 5, Mockito, AssertJ e padrao AAA.
-  - Cobertura de teste: quatro cenarios obrigatorios definidos em `3-testing-strategy.md`.
+  - Cobertura de teste: quatro cenarios obrigatorios definidos em `specs/3-testing-strategy.md`.
 
 ## Fase 3 - Frontend Setup e Arquitetura
 
