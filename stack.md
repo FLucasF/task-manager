@@ -10,7 +10,7 @@ O projeto esta organizado como uma aplicacao Full Stack com separacao fisica ent
 ## Backend
 
 - Java 21
-- Spring Boot 3.5
+- Spring Boot 4.1.0
 - Spring Web
 - Spring Validation
 - Maven
@@ -29,4 +29,12 @@ O backend expoe recursos sob `/api` e libera CORS conforme `CORS_ALLOWED_ORIGINS
 
 ## Contrato de API
 
-O contrato REST inicial da To-Do List esta documentado em `openapi.yaml` na raiz do projeto.
+O contrato REST canonico da To-Do List esta documentado em `openapi.yaml` na raiz do projeto.
+
+## Especificacoes do Projeto
+
+As especificacoes de arquitetura, testes e UI/UX ficam centralizadas em `specs/`:
+
+- `specs/1-architecture-spec.md`
+- `specs/3-testing-strategy.md`
+- `specs/4-ui-ux-spec.md`

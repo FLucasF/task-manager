@@ -11,10 +11,10 @@ preset:
   id: java
   name: 'Java Spring Service Preset'
   version: 1.0.0
-  description: 'Arquitetura para backend Java 21+ com Spring Boot 3+, DDD tatico e testes robustos'
+  description: 'Arquitetura para backend Java 21+ com Spring Boot 4.1.0, DDD tatico e testes robustos'
   technologies:
     - Java 21+
-    - Spring Boot 3.3+
+    - Spring Boot 4.1.0
     - Spring Web
     - Spring Data JPA
     - Flyway
