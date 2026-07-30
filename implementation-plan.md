@@ -19,7 +19,7 @@
 - [x] `dev` - Confirmar que as specs seguem o stack canonico do projeto: React 19, Vite 7, Java 21 e Spring Boot 4.1.x.
   - Cobertura de teste: nenhuma automatizada; evidencia por checklist no PR.
 
-- [ ] `qa` - Definir matriz minima de aceite com endpoints, estados UI, acessibilidade e fluxos E2E.
+- [x] `qa` - Definir matriz minima de aceite com endpoints, estados UI, acessibilidade e fluxos E2E.
   - Cobertura de teste: matriz deve mapear cada criterio para unitario, integracao, componente ou E2E.
 
 ## Fase 1 - Backend Base e Camadas
