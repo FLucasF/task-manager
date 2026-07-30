@@ -30,7 +30,7 @@
 - [x] `dev` - Criar Entity JPA `Task` com `id`, `title`, `completed`, `createdAt`.
   - Cobertura de teste: cobrir persistencia real em H2 via teste de integracao repository ou por `TaskControllerIT`.
 
-- [ ] `dev` - Aplicar validacoes de dominio/DTO para `title`: obrigatorio, `@NotBlank`, `@Size(min = 3, max = 100)`.
+- [x] `dev` - Aplicar validacoes de dominio/DTO para `title`: obrigatorio, `@NotBlank`, `@Size(min = 3, max = 100)`.
   - Cobertura de teste: `TaskServiceTest` para titulo menor que 3; `TaskControllerIT` para HTTP 400 e ProblemDetails.
 
 - [ ] `dev` - Criar `TaskRepository extends JpaRepository<Task, Long>`.
