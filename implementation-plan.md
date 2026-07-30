@@ -45,7 +45,7 @@
 - [x] `dev` - Criar `TaskService` com injecao por construtor e regras de listagem, criacao, toggle e delecao.
   - Cobertura de teste: `TaskServiceTest` com Mockito cobrindo sucesso na criacao, rejeicao de titulo curto, toggle completed e erro de delecao inexistente.
 
-- [ ] `dev` - Criar `ResourceNotFoundException` para recursos inexistentes.
+- [x] `dev` - Criar `ResourceNotFoundException` para recursos inexistentes.
   - Cobertura de teste: `TaskServiceTest` e `TaskControllerIT` para 404.
 
 ## Fase 2 - Backend REST e Erros RFC 7807
