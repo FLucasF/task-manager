@@ -16,7 +16,7 @@
 - [x] `dev` - Confirmar que `openapi.yaml` da raiz e o unico contrato OpenAPI canonico do projeto.
   - Cobertura de teste: validar parsing YAML e conferir `CreateTaskRequest.title` com `minLength: 3`, `maxLength: 100` e `application/problem+json`.
 
-- [ ] `dev` - Confirmar que as specs seguem o stack canonico do projeto: React 19, Vite 7, Java 21 e Spring Boot 4.1.x.
+- [x] `dev` - Confirmar que as specs seguem o stack canonico do projeto: React 19, Vite 7, Java 21 e Spring Boot 4.1.x.
   - Cobertura de teste: nenhuma automatizada; evidencia por checklist no PR.
 
 - [ ] `qa` - Definir matriz minima de aceite com endpoints, estados UI, acessibilidade e fluxos E2E.
