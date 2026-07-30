@@ -33,7 +33,7 @@
 - [x] `dev` - Aplicar validacoes de dominio/DTO para `title`: obrigatorio, `@NotBlank`, `@Size(min = 3, max = 100)`.
   - Cobertura de teste: `TaskServiceTest` para titulo menor que 3; `TaskControllerIT` para HTTP 400 e ProblemDetails.
 
-- [ ] `dev` - Criar `TaskRepository extends JpaRepository<Task, Long>`.
+- [x] `dev` - Criar `TaskRepository extends JpaRepository<Task, Long>`.
   - Cobertura de teste: validar save/find/delete em H2 indiretamente nos testes de integracao.
 
 - [ ] `dev` - Criar DTOs de entrada e saida: `CreateTaskRequest`, `TaskResponse`.
