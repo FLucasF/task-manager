@@ -58,4 +58,8 @@ public class Task {
   public Instant getCreatedAt() {
     return createdAt;
   }
+
+  public void toggleCompleted() {
+    completed = !completed;
+  }
 }
