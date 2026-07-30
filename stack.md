@@ -33,8 +33,9 @@ O contrato REST canonico da To-Do List esta documentado em `openapi.yaml` na rai
 
 ## Especificacoes do Projeto
 
-As especificacoes de arquitetura, testes e UI/UX ficam centralizadas em `specs/`:
+As especificacoes de arquitetura, testes, UI/UX e aceite ficam centralizadas em `specs/`:
 
 - `specs/1-architecture-spec.md`
 - `specs/3-testing-strategy.md`
 - `specs/4-ui-ux-spec.md`
+- `specs/5-acceptance-matrix.md`
