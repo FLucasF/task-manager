@@ -24,7 +24,7 @@
 
 ## Fase 1 - Backend Base e Camadas
 
-- [ ] `dev` - Ajustar dependencias Maven para suportar Spring Data JPA, H2 em testes/desenvolvimento e Bean Validation, preservando Java 21 e Spring Boot 4.1.x.
+- [x] `dev` - Ajustar dependencias Maven para suportar Spring Data JPA, H2 em testes/desenvolvimento e Bean Validation, preservando Java 21 e Spring Boot 4.1.x.
   - Cobertura de teste: `mvn test` deve subir o contexto Spring sem falhas.
 
 - [ ] `dev` - Criar Entity JPA `Task` com `id`, `title`, `completed`, `createdAt`.
