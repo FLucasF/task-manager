@@ -24,28 +24,28 @@
 
 ## Fase 1 - Backend Base e Camadas
 
-- [ ] `dev` - Ajustar dependencias Maven para suportar Spring Data JPA, H2 em testes/desenvolvimento e Bean Validation, preservando Java 21 e Spring Boot 4.1.x.
+- [x] `dev` - Ajustar dependencias Maven para suportar Spring Data JPA, H2 em testes/desenvolvimento e Bean Validation, preservando Java 21 e Spring Boot 4.1.x.
   - Cobertura de teste: `mvn test` deve subir o contexto Spring sem falhas.
 
-- [ ] `dev` - Criar Entity JPA `Task` com `id`, `title`, `completed`, `createdAt`.
+- [x] `dev` - Criar Entity JPA `Task` com `id`, `title`, `completed`, `createdAt`.
   - Cobertura de teste: cobrir persistencia real em H2 via teste de integracao repository ou por `TaskControllerIT`.
 
-- [ ] `dev` - Aplicar validacoes de dominio/DTO para `title`: obrigatorio, `@NotBlank`, `@Size(min = 3, max = 100)`.
+- [x] `dev` - Aplicar validacoes de dominio/DTO para `title`: obrigatorio, `@NotBlank`, `@Size(min = 3, max = 100)`.
   - Cobertura de teste: `TaskServiceTest` para titulo menor que 3; `TaskControllerIT` para HTTP 400 e ProblemDetails.
 
-- [ ] `dev` - Criar `TaskRepository extends JpaRepository<Task, Long>`.
+- [x] `dev` - Criar `TaskRepository extends JpaRepository<Task, Long>`.
   - Cobertura de teste: validar save/find/delete em H2 indiretamente nos testes de integracao.
 
-- [ ] `dev` - Criar DTOs de entrada e saida: `CreateTaskRequest`, `TaskResponse`.
+- [x] `dev` - Criar DTOs de entrada e saida: `CreateTaskRequest`, `TaskResponse`.
   - Cobertura de teste: validar serializacao JSON nos testes MockMvc.
 
-- [ ] `dev` - Criar mapper dedicado para conversao `Task` -> `TaskResponse` e request -> entity, usando mapper estatico ou classe dedicada.
+- [x] `dev` - Criar mapper dedicado para conversao `Task` -> `TaskResponse` e request -> entity, usando mapper estatico ou classe dedicada.
   - Cobertura de teste: cobrir mapeamento por testes unitarios de service ou teste especifico de mapper se houver logica nao trivial.
 
-- [ ] `dev` - Criar `TaskService` com injecao por construtor e regras de listagem, criacao, toggle e delecao.
+- [x] `dev` - Criar `TaskService` com injecao por construtor e regras de listagem, criacao, toggle e delecao.
   - Cobertura de teste: `TaskServiceTest` com Mockito cobrindo sucesso na criacao, rejeicao de titulo curto, toggle completed e erro de delecao inexistente.
 
-- [ ] `dev` - Criar `ResourceNotFoundException` para recursos inexistentes.
+- [x] `dev` - Criar `ResourceNotFoundException` para recursos inexistentes.
   - Cobertura de teste: `TaskServiceTest` e `TaskControllerIT` para 404.
 
 ## Fase 2 - Backend REST e Erros RFC 7807
