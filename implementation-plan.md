@@ -36,7 +36,7 @@
 - [x] `dev` - Criar `TaskRepository extends JpaRepository<Task, Long>`.
   - Cobertura de teste: validar save/find/delete em H2 indiretamente nos testes de integracao.
 
-- [ ] `dev` - Criar DTOs de entrada e saida: `CreateTaskRequest`, `TaskResponse`.
+- [x] `dev` - Criar DTOs de entrada e saida: `CreateTaskRequest`, `TaskResponse`.
   - Cobertura de teste: validar serializacao JSON nos testes MockMvc.
 
 - [ ] `dev` - Criar mapper dedicado para conversao `Task` -> `TaskResponse` e request -> entity, usando mapper estatico ou classe dedicada.
