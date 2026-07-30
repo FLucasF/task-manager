@@ -13,7 +13,7 @@
 
 ## Fase 0 - Alinhamento Inicial
 
-- [ ] `dev` - Confirmar que `openapi.yaml` da raiz e o unico contrato OpenAPI canonico do projeto.
+- [x] `dev` - Confirmar que `openapi.yaml` da raiz e o unico contrato OpenAPI canonico do projeto.
   - Cobertura de teste: validar parsing YAML e conferir `CreateTaskRequest.title` com `minLength: 3`, `maxLength: 100` e `application/problem+json`.
 
 - [ ] `dev` - Confirmar que as specs seguem o stack canonico do projeto: React 19, Vite 7, Java 21 e Spring Boot 4.1.x.
