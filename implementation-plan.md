@@ -39,7 +39,7 @@
 - [x] `dev` - Criar DTOs de entrada e saida: `CreateTaskRequest`, `TaskResponse`.
   - Cobertura de teste: validar serializacao JSON nos testes MockMvc.
 
-- [ ] `dev` - Criar mapper dedicado para conversao `Task` -> `TaskResponse` e request -> entity, usando mapper estatico ou classe dedicada.
+- [x] `dev` - Criar mapper dedicado para conversao `Task` -> `TaskResponse` e request -> entity, usando mapper estatico ou classe dedicada.
   - Cobertura de teste: cobrir mapeamento por testes unitarios de service ou teste especifico de mapper se houver logica nao trivial.
 
 - [ ] `dev` - Criar `TaskService` com injecao por construtor e regras de listagem, criacao, toggle e delecao.
