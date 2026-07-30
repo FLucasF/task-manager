@@ -42,7 +42,7 @@
 - [x] `dev` - Criar mapper dedicado para conversao `Task` -> `TaskResponse` e request -> entity, usando mapper estatico ou classe dedicada.
   - Cobertura de teste: cobrir mapeamento por testes unitarios de service ou teste especifico de mapper se houver logica nao trivial.
 
-- [ ] `dev` - Criar `TaskService` com injecao por construtor e regras de listagem, criacao, toggle e delecao.
+- [x] `dev` - Criar `TaskService` com injecao por construtor e regras de listagem, criacao, toggle e delecao.
   - Cobertura de teste: `TaskServiceTest` com Mockito cobrindo sucesso na criacao, rejeicao de titulo curto, toggle completed e erro de delecao inexistente.
 
 - [ ] `dev` - Criar `ResourceNotFoundException` para recursos inexistentes.
