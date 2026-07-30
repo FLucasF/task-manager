@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Definir diretrizes e padroes de teste para garantir confiabilidade do backend Spring Boot 3/Java 21 e do frontend React 18/Vite/TypeScript. A estrategia cobre testes unitarios, integracao, componentes e E2E.
+Definir diretrizes e padroes de teste para garantir confiabilidade do backend Spring Boot 4.1.x/Java 21 e do frontend React 19/Vite 7/TypeScript. A versao exata do Spring Boot deve seguir `backend/pom.xml`. A estrategia cobre testes unitarios, integracao, componentes e E2E.
 
 ## Principios Gerais
 
