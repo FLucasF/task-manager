@@ -16,7 +16,7 @@ export function TaskItem({ task, onToggle, onDelete, disabled = false }: TaskIte
   return (
     <article
       aria-labelledby={titleId}
-      className="flex items-center gap-3 rounded-md border border-app-border bg-app-surface p-4"
+      className="flex items-center gap-3 rounded-md border border-app-border bg-app-surface p-4 transition-colors duration-150 ease-out hover:bg-app-surfaceHover"
     >
       <input
         type="checkbox"
@@ -24,7 +24,7 @@ export function TaskItem({ task, onToggle, onDelete, disabled = false }: TaskIte
         onChange={() => onToggle(task.id)}
         disabled={disabled}
         aria-label={toggleLabel}
-        className="h-5 w-5 accent-app-accent disabled:cursor-not-allowed disabled:opacity-50"
+        className="h-5 w-5 accent-app-accent transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accentHover focus-visible:ring-offset-2 focus-visible:ring-offset-app-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
       />
       <span
         id={titleId}
@@ -37,7 +37,7 @@ export function TaskItem({ task, onToggle, onDelete, disabled = false }: TaskIte
         aria-label="Excluir tarefa"
         onClick={() => onDelete(task.id)}
         disabled={disabled}
-        className="flex h-11 w-11 items-center justify-center rounded-md text-app-danger disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex h-11 w-11 items-center justify-center rounded-md text-app-danger transition-colors duration-150 ease-out hover:bg-app-dangerSurface active:bg-app-surfaceElevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accentHover focus-visible:ring-offset-2 focus-visible:ring-offset-app-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
       >
         <svg
           aria-hidden="true"

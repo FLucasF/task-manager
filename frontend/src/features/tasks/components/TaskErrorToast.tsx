@@ -28,7 +28,7 @@ export function TaskErrorToast({
         type="button"
         aria-label="Fechar notificacao"
         onClick={onDismiss}
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-app-danger"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-app-danger transition-colors duration-150 ease-out hover:bg-app-surfaceHover active:bg-app-surfaceElevated focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accentHover focus-visible:ring-offset-2 focus-visible:ring-offset-app-background"
       >
         <svg
           aria-hidden="true"

@@ -111,7 +111,7 @@
 - [x] `dev` - Implementar Toast/Snackbar para erros de API com auto-dismiss, descarte manual, vermelho suave e `aria-live`.
   - Cobertura de teste: RTL com timers falsos para exibicao, descarte manual e auto-dismiss.
 
-- [ ] `dev` - Garantir foco por teclado com `focus-visible` ring de 2px, estados hover/active/disabled e `prefers-reduced-motion`.
+- [x] `dev` - Garantir foco por teclado com `focus-visible` ring de 2px, estados hover/active/disabled e `prefers-reduced-motion`.
   - Cobertura de teste: axe/manual checklist para a11y; Playwright pode validar navegacao por Tab no fluxo principal.
 
 - [ ] `qa` - Executar checklist de acessibilidade WCAG 2.1 AA para contraste, labels, botoes icon-only, live regions e reduced motion.

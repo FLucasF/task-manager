@@ -29,6 +29,26 @@ describe('TaskInput', () => {
     expect(screen.getByLabelText('Titulo da tarefa')).toHaveValue('');
   });
 
+  it('exposes visible focus styles in keyboard tab order', async () => {
+    const user = userEvent.setup();
+    render(<TaskInput onSubmit={vi.fn()} />);
+
+    const input = screen.getByLabelText('Titulo da tarefa');
+    const button = screen.getByRole('button', { name: 'Adicionar' });
+
+    await user.tab();
+    expect(input).toHaveFocus();
+    expect(input).toHaveClass('hover:border-app-textMuted', 'focus-visible:ring-2');
+
+    await user.tab();
+    expect(button).toHaveFocus();
+    expect(button).toHaveClass(
+      'hover:bg-app-accentHover',
+      'active:bg-app-accentActive',
+      'focus-visible:ring-2',
+    );
+  });
+
   it('prevents interaction while disabled', async () => {
     const user = userEvent.setup();
     const onSubmit = vi.fn();

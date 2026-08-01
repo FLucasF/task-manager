@@ -59,4 +59,30 @@ describe('TaskItem', () => {
     expect(onDelete).toHaveBeenCalledWith(task.id);
     expect(container.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
   });
+
+  it('supports keyboard focus and disabled interaction states', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(
+      <TaskItem task={task} onToggle={vi.fn()} onDelete={vi.fn()} />,
+    );
+
+    const checkbox = screen.getByRole('checkbox');
+    const deleteButton = screen.getByRole('button', { name: 'Excluir tarefa' });
+
+    await user.tab();
+    expect(checkbox).toHaveFocus();
+    expect(checkbox).toHaveClass('focus-visible:ring-2');
+
+    await user.tab();
+    expect(deleteButton).toHaveFocus();
+    expect(deleteButton).toHaveClass(
+      'hover:bg-app-dangerSurface',
+      'active:bg-app-surfaceElevated',
+      'focus-visible:ring-2',
+    );
+
+    rerender(<TaskItem task={task} onToggle={vi.fn()} onDelete={vi.fn()} disabled />);
+    expect(screen.getByRole('checkbox')).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Excluir tarefa' })).toBeDisabled();
+  });
 });

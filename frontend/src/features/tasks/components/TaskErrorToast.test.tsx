@@ -21,7 +21,11 @@ describe('TaskErrorToast', () => {
     expect(toast).toHaveTextContent(message);
     expect(toast).toHaveAttribute('aria-live', 'assertive');
     expect(toast).toHaveClass('fixed', 'bg-app-dangerSurface', 'text-app-textPrimary');
-    expect(screen.getByRole('button', { name: 'Fechar notificacao' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Fechar notificacao' })).toHaveClass(
+      'hover:bg-app-surfaceHover',
+      'active:bg-app-surfaceElevated',
+      'focus-visible:ring-2',
+    );
   });
 
   it('supports manual dismissal', () => {
