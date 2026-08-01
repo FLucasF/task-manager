@@ -50,7 +50,7 @@
 
 ## Fase 2 - Backend REST e Erros RFC 7807
 
-- [ ] `dev` - Refatorar `TaskController` para depender de `TaskService` e expor somente DTOs.
+- [x] `dev` - Refatorar `TaskController` para depender de `TaskService` e expor somente DTOs.
   - Cobertura de teste: `TaskControllerIT` para `GET /api/tasks`, `POST /api/tasks`, `PATCH /api/tasks/{id}/toggle` e `DELETE /api/tasks/{id}`.
 
 - [ ] `dev` - Implementar `GlobalExceptionHandler` com `@ControllerAdvice` retornando ProblemDetails para 400, 404 e 500.
