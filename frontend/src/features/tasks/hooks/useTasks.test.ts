@@ -87,4 +87,35 @@ describe('useTasks', () => {
     });
     expect(result.current.tasks).toEqual([]);
   });
+
+  it('stores mutation errors without changing the current tasks', async () => {
+    const createError = new Error('Create failed');
+    const toggleError = new Error('Toggle failed');
+    const deleteError = new Error('Delete failed');
+    mockedListTasks.mockResolvedValueOnce([task]);
+    mockedCreateTask.mockRejectedValueOnce(createError);
+    mockedToggleTask.mockRejectedValueOnce(toggleError);
+    mockedDeleteTask.mockRejectedValueOnce(deleteError);
+
+    const { result } = renderHook(() => useTasks());
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    await act(async () => {
+      await expect(result.current.createTask({ title: 'Nova tarefa' })).rejects.toBe(createError);
+    });
+    expect(result.current.error).toBe(createError);
+    expect(result.current.tasks).toEqual([task]);
+
+    await act(async () => {
+      await expect(result.current.toggleTask(task.id)).rejects.toBe(toggleError);
+    });
+    expect(result.current.error).toBe(toggleError);
+    expect(result.current.tasks).toEqual([task]);
+
+    await act(async () => {
+      await expect(result.current.deleteTask(task.id)).rejects.toBe(deleteError);
+    });
+    expect(result.current.error).toBe(deleteError);
+    expect(result.current.tasks).toEqual([task]);
+  });
 });

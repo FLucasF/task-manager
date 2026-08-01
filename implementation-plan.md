@@ -125,7 +125,7 @@
 - [x] `qa` - Criar teste Playwright da jornada completa: adicionar tarefa -> marcar concluida -> excluir.
   - Cobertura de teste: E2E validando UI integrada com backend real ou ambiente controlado equivalente.
 
-- [ ] `qa` - Cobrir erros de API no frontend.
+- [x] `qa` - Cobrir erros de API no frontend.
   - Cobertura de teste: componente/hook para toast de erro; opcional E2E interceptando falha de rede.
 
 - [ ] `qa` - Cobrir validacao de titulo menor que 3 caracteres ponta a ponta.
