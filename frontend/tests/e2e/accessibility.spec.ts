@@ -12,11 +12,34 @@ const task = {
 };
 
 async function mockTaskList(page: Page) {
-  await page.route('**/api/tasks', async (route) => {
-    await route.fulfill({
-      contentType: 'application/json',
-      body: JSON.stringify([task]),
-    });
+  let currentTask: typeof task | null = task;
+
+  await page.route((url) => url.pathname.startsWith('/api/tasks'), async (route) => {
+    const request = route.request();
+    const pathname = new URL(request.url()).pathname;
+
+    if (request.method() === 'GET' && pathname === '/api/tasks') {
+      await route.fulfill({ status: 200, json: currentTask ? [currentTask] : [] });
+      return;
+    }
+
+    if (request.method() === 'PATCH' && pathname === `/api/tasks/${task.id}/toggle`) {
+      if (!currentTask) {
+        await route.fulfill({ status: 404 });
+        return;
+      }
+      currentTask = { ...currentTask, completed: !currentTask.completed };
+      await route.fulfill({ status: 200, json: currentTask });
+      return;
+    }
+
+    if (request.method() === 'DELETE' && pathname === `/api/tasks/${task.id}`) {
+      currentTask = null;
+      await route.fulfill({ status: 204 });
+      return;
+    }
+
+    await route.fulfill({ status: 404 });
   });
 }
 
@@ -48,9 +71,15 @@ test('passes an axe audit and supports keyboard focus in the main flow', async (
 
   await page.keyboard.press('Tab');
   await expect(addButton).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByRole('alert')).toContainText(
+    'O titulo deve ter entre 3 e 100 caracteres.',
+  );
 
   await page.keyboard.press('Tab');
   await expect(checkbox).toBeFocused();
+  await page.keyboard.press('Space');
+  await expect(checkbox).toBeChecked();
 
   await page.keyboard.press('Tab');
   await expect(deleteButton).toBeFocused();
@@ -70,6 +99,9 @@ test('passes an axe audit and supports keyboard focus in the main flow', async (
     expect(target.width).toBeGreaterThanOrEqual(44);
     expect(target.height).toBeGreaterThanOrEqual(44);
   }
+
+  await page.keyboard.press('Enter');
+  await expect(page.getByText(task.title)).toHaveCount(0);
 });
 
 test('reduces animation and transition durations when requested', async ({ page }) => {

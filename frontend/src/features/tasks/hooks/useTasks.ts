@@ -10,6 +10,7 @@ import type { CreateTaskRequest, Task } from '../types';
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
   const [error, setError] = useState<unknown>(null);
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export function useTasks() {
 
   const createTask = useCallback(async (request: CreateTaskRequest) => {
     setError(null);
+    setCreating(true);
 
     try {
       const createdTask = await createTaskRequest(request);
@@ -48,6 +50,8 @@ export function useTasks() {
     } catch (requestError) {
       setError(requestError);
       throw requestError;
+    } finally {
+      setCreating(false);
     }
   }, []);
 
@@ -85,6 +89,7 @@ export function useTasks() {
   return {
     tasks,
     loading,
+    creating,
     error,
     createTask,
     toggleTask,
