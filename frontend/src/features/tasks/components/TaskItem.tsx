@@ -18,14 +18,16 @@ export function TaskItem({ task, onToggle, onDelete, disabled = false }: TaskIte
       aria-labelledby={titleId}
       className="flex items-center gap-3 rounded-md border border-app-border bg-app-surface p-4 transition-colors duration-150 ease-out hover:bg-app-surfaceHover"
     >
-      <input
-        type="checkbox"
-        checked={task.completed}
-        onChange={() => onToggle(task.id)}
-        disabled={disabled}
-        aria-label={toggleLabel}
-        className="h-5 w-5 accent-app-accent transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accentHover focus-visible:ring-offset-2 focus-visible:ring-offset-app-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-      />
+      <label className="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center">
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={() => onToggle(task.id)}
+          disabled={disabled}
+          aria-label={toggleLabel}
+          className="h-5 w-5 accent-app-accent transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accentHover focus-visible:ring-offset-2 focus-visible:ring-offset-app-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+        />
+      </label>
       <span
         id={titleId}
         className={`flex-1 text-app-textPrimary ${task.completed ? 'line-through' : ''}`}

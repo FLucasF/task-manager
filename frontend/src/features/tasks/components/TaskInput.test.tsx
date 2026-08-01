@@ -13,6 +13,7 @@ describe('TaskInput', () => {
     expect(input).toHaveAttribute('minlength', '3');
     expect(input).toHaveAttribute('maxlength', '100');
     expect(input).toBeRequired();
+    expect(input).toHaveClass('border-app-controlBorder');
     expect(screen.getByRole('button', { name: 'Adicionar' })).toBeInTheDocument();
   });
 

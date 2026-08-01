@@ -24,6 +24,7 @@ describe('TaskItem', () => {
         name: 'Marcar "Revisar acessibilidade" como concluida',
       }),
     ).not.toBeChecked();
+    expect(screen.getByRole('checkbox').closest('label')).toHaveClass('h-11', 'w-11');
     expect(screen.getByRole('button', { name: 'Excluir tarefa' })).toBeInTheDocument();
   });
 
