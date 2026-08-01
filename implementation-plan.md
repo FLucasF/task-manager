@@ -85,7 +85,7 @@
 - [x] `dev` - Criar API helper com Axios para list, create, toggle e delete.
   - Cobertura de teste: mock de Axios ou MSW para sucesso e erro, se infraestrutura for adicionada; caso contrario cobrir via hook.
 
-- [ ] `dev` - Criar hook `useTasks()` encapsulando fetch inicial, loading, erro, create, toggle e delete.
+- [x] `dev` - Criar hook `useTasks()` encapsulando fetch inicial, loading, erro, create, toggle e delete.
   - Cobertura de teste: teste unitario/hook ou componente container validando loading, sucesso e erro de API.
 
 ## Fase 4 - Frontend UI, UX e A11y
