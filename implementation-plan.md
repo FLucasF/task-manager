@@ -67,7 +67,7 @@
 
 ## Fase 3 - Frontend Setup e Arquitetura
 
-- [ ] `dev` - Instalar no `/frontend` as dependencias `tailwindcss`, `postcss` e `autoprefixer`.
+- [x] `dev` - Instalar no `/frontend` as dependencias `tailwindcss`, `postcss` e `autoprefixer`.
   - Cobertura de teste: `npm run build` deve compilar CSS sem erros.
 
 - [ ] `dev` - Criar `tailwind.config.js`, `postcss.config.js` e integrar diretivas Tailwind no CSS global.
