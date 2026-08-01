@@ -73,7 +73,7 @@
 - [x] `dev` - Criar `tailwind.config.js`, `postcss.config.js` e integrar diretivas Tailwind no CSS global.
   - Cobertura de teste: build deve reconhecer classes Tailwind e preservar background `#121212`.
 
-- [ ] `dev` - Configurar tema Tailwind com tokens exigidos: `app.background: #121212`, superficies, textos, accent, danger e fonte sans.
+- [x] `dev` - Configurar tema Tailwind com tokens exigidos: `app.background: #121212`, superficies, textos, accent, danger e fonte sans.
   - Cobertura de teste: teste de componente ou snapshot leve pode validar classes principais no container raiz.
 
 - [ ] `dev` - Reorganizar frontend por feature em `/src/features/tasks`.

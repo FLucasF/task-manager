@@ -28,7 +28,7 @@ function App() {
   }, []);
 
   return (
-    <main className="app-shell min-h-screen bg-[#121212]">
+    <main className="app-shell min-h-screen bg-app-background font-sans text-app-textPrimary">
       <section className="app-panel">
         <h1>Task Manager</h1>
         {status === 'loading' && <p>Carregando tarefas da API...</p>}

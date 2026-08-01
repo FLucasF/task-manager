@@ -28,4 +28,15 @@ describe('App', () => {
     expect(await screen.findByText(/frontend conectado ao backend/i)).toBeInTheDocument();
     expect(screen.getByText('Conectar frontend ao backend')).toBeInTheDocument();
   });
+
+  it('applies the main Tailwind theme classes to the application container', async () => {
+    render(<App />);
+
+    expect(screen.getByRole('main')).toHaveClass(
+      'bg-app-background',
+      'font-sans',
+      'text-app-textPrimary',
+    );
+    expect(await screen.findByText(/frontend conectado ao backend/i)).toBeInTheDocument();
+  });
 });
