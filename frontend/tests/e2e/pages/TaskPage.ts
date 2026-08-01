@@ -51,4 +51,11 @@ export class TaskPage {
       'Nao foi possivel concluir a operacao. Tente novamente.',
     );
   }
+
+  async expectTitleValidationError(): Promise<void> {
+    await expect(this.page.getByRole('alert')).toContainText(
+      'O titulo deve ter entre 3 e 100 caracteres.',
+    );
+    await expect(this.titleInput).toHaveAttribute('aria-invalid', 'true');
+  }
 }

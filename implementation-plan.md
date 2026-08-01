@@ -128,7 +128,7 @@
 - [x] `qa` - Cobrir erros de API no frontend.
   - Cobertura de teste: componente/hook para toast de erro; opcional E2E interceptando falha de rede.
 
-- [ ] `qa` - Cobrir validacao de titulo menor que 3 caracteres ponta a ponta.
+- [x] `qa` - Cobrir validacao de titulo menor que 3 caracteres ponta a ponta.
   - Cobertura de teste: componente valida estado de erro; integracao backend valida HTTP 400 ProblemDetails.
 
 - [ ] `qa` - Rodar suite backend completa.
