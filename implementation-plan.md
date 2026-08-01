@@ -96,7 +96,7 @@
 - [x] `dev` - Criar `TaskInput` presentational com label associado por `htmlFor/id`, validacao visual e estados disabled/error.
   - Cobertura de teste: Vitest + RTL para renderizacao, `userEvent`, disabled e `role="alert"`.
 
-- [ ] `dev` - Criar `TaskItem` presentational usando `<article>`, checkbox/botao acessiveis e `aria-label="Excluir tarefa"` no botao icon-only.
+- [x] `dev` - Criar `TaskItem` presentational usando `<article>`, checkbox/botao acessiveis e `aria-label="Excluir tarefa"` no botao icon-only.
   - Cobertura de teste: RTL validando titulo, checkbox, toggle, delete e nome acessivel.
 
 - [ ] `dev` - Implementar layout semantico com `<main>`, `<section>`, lista semantica e cards com superficies dark.
