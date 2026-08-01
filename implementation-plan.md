@@ -108,7 +108,7 @@
 - [x] `dev` - Implementar Empty State com icone/ilustracao sutil, titulo `Tudo limpo por aqui!` e texto de apoio.
   - Cobertura de teste: RTL validando estado vazio quando API retorna lista vazia.
 
-- [ ] `dev` - Implementar Toast/Snackbar para erros de API com auto-dismiss, descarte manual, vermelho suave e `aria-live`.
+- [x] `dev` - Implementar Toast/Snackbar para erros de API com auto-dismiss, descarte manual, vermelho suave e `aria-live`.
   - Cobertura de teste: RTL com timers falsos para exibicao, descarte manual e auto-dismiss.
 
 - [ ] `dev` - Garantir foco por teclado com `focus-visible` ring de 2px, estados hover/active/disabled e `prefers-reduced-motion`.

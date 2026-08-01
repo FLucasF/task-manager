@@ -78,6 +78,10 @@ export function useTasks() {
     }
   }, []);
 
+  const clearError = useCallback(() => {
+    setError(null);
+  }, []);
+
   return {
     tasks,
     loading,
@@ -85,5 +89,6 @@ export function useTasks() {
     createTask,
     toggleTask,
     deleteTask,
+    clearError,
   };
 }

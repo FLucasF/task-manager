@@ -100,4 +100,16 @@ describe('TaskContainer', () => {
     expect(screen.queryByRole('list')).not.toBeInTheDocument();
     expect(screen.queryAllByTestId('task-skeleton')).toHaveLength(0);
   });
+
+  it('keeps the interface available while reporting API errors in a toast', async () => {
+    mockedListTasks.mockRejectedValueOnce(new Error('API unavailable'));
+
+    render(<TaskContainer />);
+
+    const toast = await screen.findByRole('alert');
+    expect(toast).toHaveTextContent('Nao foi possivel concluir a operacao. Tente novamente.');
+    expect(toast).toHaveAttribute('aria-live', 'assertive');
+    expect(screen.getByLabelText('Titulo da tarefa')).toBeEnabled();
+    expect(screen.queryByTestId('task-empty-state')).not.toBeInTheDocument();
+  });
 });
