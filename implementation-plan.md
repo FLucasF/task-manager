@@ -93,7 +93,7 @@
 - [x] `dev` - Criar container de tarefas responsavel por estado, chamadas do hook e composicao visual.
   - Cobertura de teste: componente/container com fetch inicial e renderizacao de lista.
 
-- [ ] `dev` - Criar `TaskInput` presentational com label associado por `htmlFor/id`, validacao visual e estados disabled/error.
+- [x] `dev` - Criar `TaskInput` presentational com label associado por `htmlFor/id`, validacao visual e estados disabled/error.
   - Cobertura de teste: Vitest + RTL para renderizacao, `userEvent`, disabled e `role="alert"`.
 
 - [ ] `dev` - Criar `TaskItem` presentational usando `<article>`, checkbox/botao acessiveis e `aria-label="Excluir tarefa"` no botao icon-only.
