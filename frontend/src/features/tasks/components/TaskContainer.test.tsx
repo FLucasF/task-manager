@@ -83,4 +83,21 @@ describe('TaskContainer', () => {
     );
     expect(mockedDeleteTask).toHaveBeenCalledWith(task.id);
   });
+
+  it('renders the empty state when the API returns no tasks', async () => {
+    mockedListTasks.mockResolvedValueOnce([]);
+
+    render(<TaskContainer />);
+
+    expect(screen.getByRole('status', { name: 'Carregando tarefas' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('heading', { name: 'Tudo limpo por aqui!' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Adicione uma nova tarefa para comecar a organizar seu dia.'),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId('task-empty-state').querySelector('svg')).toBeInTheDocument();
+    expect(screen.queryByRole('list')).not.toBeInTheDocument();
+    expect(screen.queryAllByTestId('task-skeleton')).toHaveLength(0);
+  });
 });

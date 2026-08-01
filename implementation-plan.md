@@ -105,7 +105,7 @@
 - [x] `dev` - Implementar Skeleton Loaders no formato dos cards para fetch inicial, sem spinner fullscreen.
   - Cobertura de teste: RTL validando skeleton durante loading e ausencia apos carregamento.
 
-- [ ] `dev` - Implementar Empty State com icone/ilustracao sutil, titulo `Tudo limpo por aqui!` e texto de apoio.
+- [x] `dev` - Implementar Empty State com icone/ilustracao sutil, titulo `Tudo limpo por aqui!` e texto de apoio.
   - Cobertura de teste: RTL validando estado vazio quando API retorna lista vazia.
 
 - [ ] `dev` - Implementar Toast/Snackbar para erros de API com auto-dismiss, descarte manual, vermelho suave e `aria-live`.
