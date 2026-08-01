@@ -1,11 +1,12 @@
 import { useTasks } from '../hooks/useTasks';
 import { TaskEmptyState } from './TaskEmptyState';
+import { TaskErrorToast } from './TaskErrorToast';
 import { TaskInput } from './TaskInput';
 import { TaskItem } from './TaskItem';
 import { TaskSkeletonList } from './TaskSkeletonList';
 
 export function TaskContainer() {
-  const { tasks, loading, error, createTask, toggleTask, deleteTask } = useTasks();
+  const { tasks, loading, error, createTask, toggleTask, deleteTask, clearError } = useTasks();
 
   function handleCreateTask(title: string) {
     void createTask({ title }).catch(() => undefined);
@@ -36,11 +37,6 @@ export function TaskContainer() {
           Lista de tarefas
         </h2>
         {loading && <TaskSkeletonList />}
-        {Boolean(error) && (
-          <p role="alert" className="rounded-md bg-app-dangerSurface p-4 text-app-danger">
-            Nao foi possivel concluir a operacao. Tente novamente.
-          </p>
-        )}
         {!loading && !error && tasks.length === 0 && <TaskEmptyState />}
         {!loading && tasks.length > 0 && (
           <ul className="flex list-none flex-col gap-3 p-0">
@@ -56,6 +52,12 @@ export function TaskContainer() {
           </ul>
         )}
       </section>
+      {Boolean(error) && (
+        <TaskErrorToast
+          message="Nao foi possivel concluir a operacao. Tente novamente."
+          onDismiss={clearError}
+        />
+      )}
     </div>
   );
 }
