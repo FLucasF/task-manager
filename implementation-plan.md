@@ -114,7 +114,7 @@
 - [x] `dev` - Garantir foco por teclado com `focus-visible` ring de 2px, estados hover/active/disabled e `prefers-reduced-motion`.
   - Cobertura de teste: axe/manual checklist para a11y; Playwright pode validar navegacao por Tab no fluxo principal.
 
-- [ ] `qa` - Executar checklist de acessibilidade WCAG 2.1 AA para contraste, labels, botoes icon-only, live regions e reduced motion.
+- [x] `qa` - Executar checklist de acessibilidade WCAG 2.1 AA para contraste, labels, botoes icon-only, live regions e reduced motion.
   - Cobertura de teste: relatorio QA anexado ao PR; automatizar com Testing Library e Playwright onde praticavel.
 
 ## Fase 5 - E2E e Qualidade Integrada
