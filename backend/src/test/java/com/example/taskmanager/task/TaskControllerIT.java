@@ -10,8 +10,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.Instant;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
@@ -109,13 +112,12 @@ class TaskControllerIT {
     assertThat(taskRepository.findById(task.getId())).isEmpty();
   }
 
-  @Test
-  void shouldRejectInvalidTaskRequest() throws Exception {
+  @ParameterizedTest
+  @MethodSource("invalidTitles")
+  void shouldRejectInvalidTaskRequest(String title) throws Exception {
     mockMvc.perform(post("/api/tasks")
             .contentType(MediaType.APPLICATION_JSON)
-            .content("""
-                {"title":"Ir"}
-                """))
+            .content(objectMapper.writeValueAsString(new CreateTaskRequest(title))))
         .andExpect(status().isBadRequest())
         .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
         .andExpect(jsonPath("$.status").value(400));
@@ -150,5 +152,9 @@ class TaskControllerIT {
         .andExpect(jsonPath("$.status").value(500))
         .andExpect(jsonPath("$.detail").value(
             "An unexpected error occurred while processing the request."));
+  }
+
+  private static Stream<String> invalidTitles() {
+    return Stream.of(null, "", "   ", "Ir", "a".repeat(101));
   }
 }
