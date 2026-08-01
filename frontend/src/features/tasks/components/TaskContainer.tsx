@@ -1,28 +1,58 @@
 import { useTasks } from '../hooks/useTasks';
+import { TaskInput } from './TaskInput';
+import { TaskItem } from './TaskItem';
 
 export function TaskContainer() {
-  const { tasks, loading, error } = useTasks();
+  const { tasks, loading, error, createTask, toggleTask, deleteTask } = useTasks();
+
+  function handleCreateTask(title: string) {
+    void createTask({ title }).catch(() => undefined);
+  }
+
+  function handleToggleTask(id: number) {
+    void toggleTask(id).catch(() => undefined);
+  }
+
+  function handleDeleteTask(id: number) {
+    void deleteTask(id).catch(() => undefined);
+  }
 
   return (
-    <section className="app-panel" aria-labelledby="task-manager-title">
-      <h1 id="task-manager-title">Task Manager</h1>
-      {loading && <p>Carregando tarefas da API...</p>}
-      {Boolean(error) && (
-        <p role="alert">Nao foi possivel conectar ao backend em /api/tasks.</p>
-      )}
-      {!loading && !error && (
-        <>
-          <p>Frontend conectado ao backend: {tasks.length} tarefa(s) carregada(s).</p>
-          <ul className="task-list">
+    <div className="flex flex-col gap-8">
+      <section
+        aria-labelledby="task-form-title"
+        className="rounded-lg border border-app-border bg-app-surface p-4 md:p-6"
+      >
+        <h1 id="task-form-title" className="mb-6 text-2xl font-semibold leading-tight md:text-3xl">
+          Task Manager
+        </h1>
+        <TaskInput onSubmit={handleCreateTask} disabled={loading} />
+      </section>
+
+      <section aria-labelledby="task-list-title" className="flex flex-col gap-4">
+        <h2 id="task-list-title" className="text-lg font-semibold leading-snug md:text-xl">
+          Lista de tarefas
+        </h2>
+        {loading && <p className="text-app-textSecondary">Carregando tarefas da API...</p>}
+        {Boolean(error) && (
+          <p role="alert" className="rounded-md bg-app-dangerSurface p-4 text-app-danger">
+            Nao foi possivel concluir a operacao. Tente novamente.
+          </p>
+        )}
+        {!loading && (
+          <ul className="flex list-none flex-col gap-3 p-0">
             {tasks.map((task) => (
               <li key={task.id}>
-                <span>{task.title}</span>
-                <strong>{task.completed ? 'Concluida' : 'Pendente'}</strong>
+                <TaskItem
+                  task={task}
+                  onToggle={handleToggleTask}
+                  onDelete={handleDeleteTask}
+                />
               </li>
             ))}
           </ul>
-        </>
-      )}
-    </section>
+        )}
+      </section>
+    </div>
   );
 }
