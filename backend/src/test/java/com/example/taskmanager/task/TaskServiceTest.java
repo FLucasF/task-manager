@@ -19,6 +19,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -65,13 +66,17 @@ class TaskServiceTest {
   void shouldCreateTaskWhenTitleIsValid() {
     var createdAt = Instant.parse("2026-07-29T20:15:00Z");
     var savedTask = new Task(1L, "Criar tarefa valida", false, createdAt);
+    var taskCaptor = ArgumentCaptor.forClass(Task.class);
     when(taskRepository.save(any(Task.class))).thenReturn(savedTask);
 
     var result = taskService.create(new CreateTaskRequest("Criar tarefa valida"));
 
     assertThat(result).isEqualTo(
         new TaskResponse(1L, "Criar tarefa valida", false, createdAt));
-    verify(taskRepository).save(any(Task.class));
+    verify(taskRepository).save(taskCaptor.capture());
+    assertThat(taskCaptor.getValue().getTitle()).isEqualTo("Criar tarefa valida");
+    assertThat(taskCaptor.getValue().isCompleted()).isFalse();
+    assertThat(taskCaptor.getValue().getCreatedAt()).isNotNull();
   }
 
   @Test
@@ -107,5 +112,19 @@ class TaskServiceTest {
         .isInstanceOf(ResourceNotFoundException.class)
         .hasMessage("Task with id 99 was not found.");
     verify(taskRepository, never()).delete(any(Task.class));
+  }
+
+  @Test
+  void shouldDeleteTaskWhenTaskExists() {
+    var task = new Task(
+        1L,
+        "Excluir tarefa",
+        false,
+        Instant.parse("2026-07-29T20:15:00Z"));
+    when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
+
+    taskService.delete(1L);
+
+    verify(taskRepository).delete(task);
   }
 }
