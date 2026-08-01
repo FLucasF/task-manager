@@ -1,4 +1,5 @@
 import { useTasks } from '../hooks/useTasks';
+import { TaskEmptyState } from './TaskEmptyState';
 import { TaskInput } from './TaskInput';
 import { TaskItem } from './TaskItem';
 import { TaskSkeletonList } from './TaskSkeletonList';
@@ -40,7 +41,8 @@ export function TaskContainer() {
             Nao foi possivel concluir a operacao. Tente novamente.
           </p>
         )}
-        {!loading && (
+        {!loading && !error && tasks.length === 0 && <TaskEmptyState />}
+        {!loading && tasks.length > 0 && (
           <ul className="flex list-none flex-col gap-3 p-0">
             {tasks.map((task) => (
               <li key={task.id}>
