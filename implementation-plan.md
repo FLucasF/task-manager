@@ -122,7 +122,7 @@
 - [x] `qa` - Criar Page Object `frontend/tests/e2e/pages/TaskPage.ts`.
   - Cobertura de teste: POM deve expor `goto`, `addTask`, `toggleTask`, `deleteTask`, `expectTaskVisible`, `expectTaskCompleted` e `expectTaskHidden`.
 
-- [ ] `qa` - Criar teste Playwright da jornada completa: adicionar tarefa -> marcar concluida -> excluir.
+- [x] `qa` - Criar teste Playwright da jornada completa: adicionar tarefa -> marcar concluida -> excluir.
   - Cobertura de teste: E2E validando UI integrada com backend real ou ambiente controlado equivalente.
 
 - [ ] `qa` - Cobrir erros de API no frontend.
