@@ -119,7 +119,7 @@
 
 ## Fase 5 - E2E e Qualidade Integrada
 
-- [ ] `qa` - Criar Page Object `frontend/tests/e2e/pages/TaskPage.ts`.
+- [x] `qa` - Criar Page Object `frontend/tests/e2e/pages/TaskPage.ts`.
   - Cobertura de teste: POM deve expor `goto`, `addTask`, `toggleTask`, `deleteTask`, `expectTaskVisible`, `expectTaskCompleted` e `expectTaskHidden`.
 
 - [ ] `qa` - Criar teste Playwright da jornada completa: adicionar tarefa -> marcar concluida -> excluir.
