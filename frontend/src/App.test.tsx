@@ -5,6 +5,9 @@ import { listTasks } from './features/tasks/api/tasks';
 
 vi.mock('./features/tasks/api/tasks', () => ({
   listTasks: vi.fn(),
+  createTask: vi.fn(),
+  toggleTask: vi.fn(),
+  deleteTask: vi.fn(),
 }));
 
 const mockedListTasks = vi.mocked(listTasks);
