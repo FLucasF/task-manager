@@ -70,7 +70,7 @@
 - [x] `dev` - Instalar no `/frontend` as dependencias `tailwindcss`, `postcss` e `autoprefixer`.
   - Cobertura de teste: `npm run build` deve compilar CSS sem erros.
 
-- [ ] `dev` - Criar `tailwind.config.js`, `postcss.config.js` e integrar diretivas Tailwind no CSS global.
+- [x] `dev` - Criar `tailwind.config.js`, `postcss.config.js` e integrar diretivas Tailwind no CSS global.
   - Cobertura de teste: build deve reconhecer classes Tailwind e preservar background `#121212`.
 
 - [ ] `dev` - Configurar tema Tailwind com tokens exigidos: `app.background: #121212`, superficies, textos, accent, danger e fonte sans.
