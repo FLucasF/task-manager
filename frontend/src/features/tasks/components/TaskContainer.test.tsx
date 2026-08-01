@@ -36,12 +36,19 @@ describe('TaskContainer', () => {
 
     expect(screen.getByRole('region', { name: 'Task Manager' })).toBeInTheDocument();
     expect(screen.getByRole('region', { name: 'Lista de tarefas' })).toBeInTheDocument();
-    expect(screen.getByText('Carregando tarefas da API...')).toBeInTheDocument();
+    expect(screen.getByRole('status', { name: 'Carregando tarefas' })).toBeInTheDocument();
+    expect(screen.getAllByTestId('task-skeleton')).toHaveLength(3);
+    expect(screen.getAllByTestId('task-skeleton')[0]).toHaveClass(
+      'border-app-border',
+      'bg-app-surface',
+      'p-4',
+    );
     expect(await screen.findByText('Compor a lista no container')).toBeInTheDocument();
     expect(screen.getByRole('list')).toBeInTheDocument();
     expect(screen.getByRole('listitem')).toBeInTheDocument();
     expect(screen.getByRole('article', { name: task.title })).toHaveClass('bg-app-surface');
-    expect(screen.queryByText('Carregando tarefas da API...')).not.toBeInTheDocument();
+    expect(screen.queryByRole('status', { name: 'Carregando tarefas' })).not.toBeInTheDocument();
+    expect(screen.queryAllByTestId('task-skeleton')).toHaveLength(0);
   });
 
   it('connects create, toggle and delete actions to the task hook', async () => {

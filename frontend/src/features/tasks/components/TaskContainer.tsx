@@ -1,6 +1,7 @@
 import { useTasks } from '../hooks/useTasks';
 import { TaskInput } from './TaskInput';
 import { TaskItem } from './TaskItem';
+import { TaskSkeletonList } from './TaskSkeletonList';
 
 export function TaskContainer() {
   const { tasks, loading, error, createTask, toggleTask, deleteTask } = useTasks();
@@ -33,7 +34,7 @@ export function TaskContainer() {
         <h2 id="task-list-title" className="text-lg font-semibold leading-snug md:text-xl">
           Lista de tarefas
         </h2>
-        {loading && <p className="text-app-textSecondary">Carregando tarefas da API...</p>}
+        {loading && <TaskSkeletonList />}
         {Boolean(error) && (
           <p role="alert" className="rounded-md bg-app-dangerSurface p-4 text-app-danger">
             Nao foi possivel concluir a operacao. Tente novamente.
