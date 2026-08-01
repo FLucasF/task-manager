@@ -43,6 +43,18 @@ public class TaskService {
   }
 
   @Transactional
+  public TaskResponse update(Long id, UpdateTaskRequest request) {
+    var violations = validator.validate(request);
+    if (!violations.isEmpty()) {
+      throw new ConstraintViolationException(violations);
+    }
+
+    var task = findById(id);
+    task.updateTitle(request.title());
+    return TaskMapper.toResponse(taskRepository.save(task));
+  }
+
+  @Transactional
   public void delete(Long id) {
     taskRepository.delete(findById(id));
   }

@@ -29,6 +29,8 @@ possui um nivel de teste principal e, quando necessario, um nivel complementar.
 | AC-API-08 | Falha inesperada retorna `500` sem expor detalhes internos. | `openapi.yaml` | Unitario + Integracao | Handler e teste HTTP controlado validam a resposta sanitizada. |
 | AC-API-09 | Respostas `400`, `404` e `500` usam `application/problem+json` e incluem `status`, `title`, `detail` e `instance`. | `openapi.yaml` | Integracao | MockMvc valida media type e todos os campos obrigatorios. |
 | AC-API-10 | Erros de validacao incluem `invalidParams` identificando `title`. | `openapi.yaml` | Integracao | MockMvc valida nome do campo e motivo da invalidade. |
+| AC-API-11 | `PUT /api/tasks/{id}` com titulo valido retorna `200`, atualiza o titulo e preserva `completed` e `createdAt`. | `openapi.yaml` | Integracao | `TaskControllerIT` valida JSON e estado persistido no H2. |
+| AC-API-12 | Update rejeita titulo invalido com `400` e ID inexistente com `404`, usando ProblemDetails. | `openapi.yaml` | Integracao | MockMvc valida erros e ausencia de alteracao indevida. |
 
 ## Regras de Dominio
 
@@ -38,6 +40,7 @@ possui um nivel de teste principal e, quando necessario, um nivel complementar.
 | AC-DOM-02 | Titulo menor que 3 caracteres e rejeitado antes de chamar `save`. | `specs/3-testing-strategy.md` | Unitario | Teste verifica a excecao e `never().save(...)`. |
 | AC-DOM-03 | Toggle de tarefa existente inverte `completed` e persiste a alteracao. | `specs/3-testing-strategy.md` | Unitario | Teste verifica resultado e interacao com o repository. |
 | AC-DOM-04 | Exclusao inexistente lanca `ResourceNotFoundException` e nao chama `delete`. | `specs/3-testing-strategy.md` | Unitario | Teste verifica a excecao e ausencia da exclusao. |
+| AC-DOM-05 | Atualizacao valida altera somente o titulo e persiste a entidade encontrada. | `openapi.yaml` | Unitario | `TaskServiceTest` valida titulo, status, data de criacao e interacao com repository. |
 
 ## Estados da Interface
 
@@ -52,6 +55,7 @@ possui um nivel de teste principal e, quando necessario, um nivel complementar.
 | AC-UI-07 | Usuario pode alternar uma tarefa e percebe o estado concluido atualizado. | `specs/4-ui-ux-spec.md` | Componente + E2E | RTL valida callback/checkbox; Playwright valida estado integrado. |
 | AC-UI-08 | Usuario pode excluir uma tarefa e o item deixa de aparecer. | `specs/4-ui-ux-spec.md` | Componente + E2E | RTL valida callback; Playwright valida remocao integrada. |
 | AC-UI-09 | Falha de API exibe toast nao bloqueante, permite descarte e desaparece entre 4 e 6 segundos. | `specs/4-ui-ux-spec.md` | Componente | RTL usa timers falsos para exibicao, descarte e auto-dismiss. |
+| AC-UI-10 | Usuario edita o titulo inline, pode salvar ou cancelar e nao perde o valor digitado se a API falhar. | `openapi.yaml` | Componente + E2E | RTL valida estados e Playwright confirma sucesso, validacao e erro. |
 
 ## Acessibilidade
 
@@ -64,6 +68,7 @@ possui um nivel de teste principal e, quando necessario, um nivel complementar.
 | AC-A11Y-05 | Todos os controles sao operaveis por teclado e exibem foco visivel de 2px. | `specs/4-ui-ux-spec.md` | Componente + E2E | RTL valida classes/estado; Playwright percorre o fluxo com Tab, Enter e Space. |
 | AC-A11Y-06 | Texto e controles atendem contraste WCAG 2.1 AA e alvos interativos tem no minimo 44px. | `specs/4-ui-ux-spec.md` | Componente + E2E | Auditoria automatizada e verificacao de estilos/computed layout. |
 | AC-A11Y-07 | Animacoes respeitam `prefers-reduced-motion`. | `specs/4-ui-ux-spec.md` | Componente + E2E | Teste de CSS e contexto Playwright com movimento reduzido. |
+| AC-A11Y-08 | Controles de edicao possuem nomes acessiveis, foco visivel e suporte a Enter e Escape. | `specs/4-ui-ux-spec.md` | Componente + E2E | RTL e Playwright percorrem abertura, salvamento e cancelamento por teclado. |
 
 ## Jornadas E2E
 
@@ -73,6 +78,7 @@ possui um nivel de teste principal e, quando necessario, um nivel complementar.
 | AC-E2E-02 | A jornada principal passa em viewport mobile sem sobreposicao ou perda de controles. | `specs/4-ui-ux-spec.md` | E2E | Mesmo fluxo executado em um projeto mobile do Playwright. |
 | AC-E2E-03 | Titulo menor que 3 caracteres nao e criado e apresenta feedback acessivel. | `openapi.yaml` | E2E | Playwright valida permanencia na tela, erro e ausencia do item. |
 | AC-E2E-04 | Falha de rede ou resposta `500` apresenta toast e mantem a tela utilizavel. | `openapi.yaml` e `specs/4-ui-ux-spec.md` | E2E | Playwright intercepta a chamada e valida resiliencia da interface. |
+| AC-E2E-05 | Em desktop e mobile, usuario cria, edita, conclui e exclui uma tarefa. | `openapi.yaml` | E2E | Playwright usa `TaskPage` e confirma o CRUD completo nos dois projetos. |
 
 ## Gate de Aceite
 

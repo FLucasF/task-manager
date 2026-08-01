@@ -4,10 +4,33 @@ import { describe, expect, it } from 'vitest';
 import { parse } from 'yaml';
 
 type OpenApiDocument = {
+  paths: {
+    '/api/tasks/{id}': {
+      put: {
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: { $ref: string };
+            };
+          };
+        };
+        responses: Record<string, unknown>;
+      };
+    };
+  };
   components: {
     responses: Record<string, { content?: Record<string, unknown> }>;
     schemas: {
       CreateTaskRequest: {
+        properties: {
+          title: {
+            minLength: number;
+            maxLength: number;
+          };
+        };
+      };
+      UpdateTaskRequest: {
+        required: string[];
         properties: {
           title: {
             minLength: number;
@@ -62,6 +85,23 @@ describe('canonical OpenAPI contract', () => {
 
     expect(title.minLength).toBe(3);
     expect(title.maxLength).toBe(100);
+  });
+
+  it('declares the title-only PUT update contract and required responses', () => {
+    const contract = loadContract();
+    const updateOperation = contract.paths['/api/tasks/{id}'].put;
+    const updateRequest = contract.components.schemas.UpdateTaskRequest;
+
+    expect(updateOperation.requestBody.content['application/json'].schema.$ref).toBe(
+      '#/components/schemas/UpdateTaskRequest',
+    );
+    expect(updateOperation.responses).toHaveProperty('200');
+    expect(updateOperation.responses).toHaveProperty('400');
+    expect(updateOperation.responses).toHaveProperty('404');
+    expect(updateOperation.responses).toHaveProperty('500');
+    expect(updateRequest.required).toEqual(['title']);
+    expect(updateRequest.properties.title.minLength).toBe(3);
+    expect(updateRequest.properties.title.maxLength).toBe(100);
   });
 
   it.each(['BadRequest', 'NotFound', 'InternalServerError'])(

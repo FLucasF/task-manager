@@ -9,6 +9,10 @@ export type CreateTaskRequest = {
   title: string;
 };
 
+export type UpdateTaskRequest = {
+  title: string;
+};
+
 export type InvalidParam = {
   name: string;
   reason: string;
