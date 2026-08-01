@@ -90,7 +90,7 @@
 
 ## Fase 4 - Frontend UI, UX e A11y
 
-- [ ] `dev` - Criar container de tarefas responsavel por estado, chamadas do hook e composicao visual.
+- [x] `dev` - Criar container de tarefas responsavel por estado, chamadas do hook e composicao visual.
   - Cobertura de teste: componente/container com fetch inicial e renderizacao de lista.
 
 - [ ] `dev` - Criar `TaskInput` presentational com label associado por `htmlFor/id`, validacao visual e estados disabled/error.
