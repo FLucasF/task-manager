@@ -59,7 +59,7 @@
 - [x] `dev` - Garantir codigos HTTP do contrato: 201 criacao, 200 listagem/toggle, 204 delecao, 400 validacao, 404 inexistente, 500 erro inesperado.
   - Cobertura de teste: `TaskControllerIT` cobrindo todos os codigos obrigatorios.
 
-- [ ] `qa` - Criar ou revisar `TaskControllerIT` com `@SpringBootTest`, `@AutoConfigureMockMvc` e H2 real.
+- [x] `qa` - Criar ou revisar `TaskControllerIT` com `@SpringBootTest`, `@AutoConfigureMockMvc` e H2 real.
   - Cobertura de teste: persistencia real na base em memoria para criar, listar, alternar e excluir.
 
 - [ ] `qa` - Criar ou revisar `TaskServiceTest` com JUnit 5, Mockito, AssertJ e padrao AAA.
