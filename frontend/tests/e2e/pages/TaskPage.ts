@@ -4,11 +4,13 @@ export class TaskPage {
   readonly page: Page;
   readonly titleInput: Locator;
   readonly addButton: Locator;
+  readonly errorToast: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.titleInput = page.getByLabel(/titulo/i);
     this.addButton = page.getByRole('button', { name: /adicionar/i });
+    this.errorToast = page.getByRole('alert');
   }
 
   async goto(): Promise<void> {
@@ -42,5 +44,11 @@ export class TaskPage {
 
   async expectTaskHidden(title: string): Promise<void> {
     await expect(this.taskItem(title)).toHaveCount(0);
+  }
+
+  async expectApiErrorVisible(): Promise<void> {
+    await expect(this.errorToast).toContainText(
+      'Nao foi possivel concluir a operacao. Tente novamente.',
+    );
   }
 }
