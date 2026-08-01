@@ -134,34 +134,34 @@
 - [x] `qa` - Rodar suite backend completa.
   - Cobertura de teste: `mvn test` no `/backend`.
 
-- [ ] `qa` - Rodar suite frontend completa.
+- [x] `qa` - Rodar suite frontend completa.
   - Cobertura de teste: `npm test` ou comando equivalente de Vitest no `/frontend`.
 
-- [ ] `qa` - Rodar build frontend.
+- [x] `qa` - Rodar build frontend.
   - Cobertura de teste: `npm run build` no `/frontend`.
 
-- [ ] `qa` - Rodar E2E Playwright.
+- [x] `qa` - Rodar E2E Playwright.
   - Cobertura de teste: `npx playwright test` no `/frontend`, com backend disponivel.
 
 ## Fase 6 - Criterios de Aceite Final
 
-- [ ] `dev` - Confirmar que nenhum controller expoe entidade JPA diretamente.
+- [x] `dev` - Confirmar que nenhum controller expoe entidade JPA diretamente.
   - Cobertura de teste: revisao de codigo.
 
-- [ ] `dev` - Confirmar que dependencias sao injetadas por construtor.
+- [x] `dev` - Confirmar que dependencias sao injetadas por construtor.
   - Cobertura de teste: revisao de codigo e compilacao.
 
-- [ ] `dev` - Confirmar que `CreateTaskRequest.title` segue `@NotBlank` e `@Size(min = 3, max = 100)`.
+- [x] `dev` - Confirmar que `CreateTaskRequest.title` segue `@NotBlank` e `@Size(min = 3, max = 100)`.
   - Cobertura de teste: unitario service e integracao controller.
 
-- [ ] `qa` - Confirmar que ProblemDetails cobre 400, 404 e 500 conforme OpenAPI.
+- [x] `qa` - Confirmar que ProblemDetails cobre 400, 404 e 500 conforme OpenAPI.
   - Cobertura de teste: MockMvc para 400/404; teste controlado ou handler unitario para 500.
 
-- [ ] `qa` - Confirmar que UI usa dark mode com background principal exatamente `#121212`.
+- [x] `qa` - Confirmar que UI usa dark mode com background principal exatamente `#121212`.
   - Cobertura de teste: inspeção visual e, se viavel, teste DOM/style.
 
-- [ ] `qa` - Confirmar que a jornada principal passa em desktop e mobile.
+- [x] `qa` - Confirmar que a jornada principal passa em desktop e mobile.
   - Cobertura de teste: Playwright em pelo menos um viewport desktop e um mobile.
 
-- [ ] `qa` - Confirmar cobertura minima por camada antes do aceite: service unitario, controller integracao, componentes frontend e E2E principal.
+- [x] `qa` - Confirmar cobertura minima por camada antes do aceite: service unitario, controller integracao, componentes frontend e E2E principal.
   - Cobertura de teste: checklist final com comandos executados e resultado.
