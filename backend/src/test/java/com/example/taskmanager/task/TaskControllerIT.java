@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import tools.jackson.databind.ObjectMapper;
 
@@ -31,6 +33,9 @@ class TaskControllerIT {
 
   @Autowired
   private TaskRepository taskRepository;
+
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
   @BeforeEach
   void setUp() {
@@ -102,5 +107,48 @@ class TaskControllerIT {
         .andExpect(content().string(""));
 
     assertThat(taskRepository.findById(task.getId())).isEmpty();
+  }
+
+  @Test
+  void shouldRejectInvalidTaskRequest() throws Exception {
+    mockMvc.perform(post("/api/tasks")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("""
+                {"title":"Ir"}
+                """))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+        .andExpect(jsonPath("$.status").value(400));
+
+    assertThat(taskRepository.count()).isZero();
+  }
+
+  @Test
+  void shouldReturnNotFoundWhenTogglingMissingTask() throws Exception {
+    mockMvc.perform(patch("/api/tasks/{id}/toggle", 999L))
+        .andExpect(status().isNotFound())
+        .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+        .andExpect(jsonPath("$.status").value(404));
+  }
+
+  @Test
+  void shouldReturnNotFoundWhenDeletingMissingTask() throws Exception {
+    mockMvc.perform(delete("/api/tasks/{id}", 999L))
+        .andExpect(status().isNotFound())
+        .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+        .andExpect(jsonPath("$.status").value(404));
+  }
+
+  @Test
+  @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+  void shouldReturnInternalServerErrorForUnexpectedFailure() throws Exception {
+    jdbcTemplate.execute("drop table tasks");
+
+    mockMvc.perform(get("/api/tasks"))
+        .andExpect(status().isInternalServerError())
+        .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+        .andExpect(jsonPath("$.status").value(500))
+        .andExpect(jsonPath("$.detail").value(
+            "An unexpected error occurred while processing the request."));
   }
 }

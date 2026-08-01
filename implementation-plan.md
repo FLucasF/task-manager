@@ -56,7 +56,7 @@
 - [x] `dev` - Implementar `GlobalExceptionHandler` com `@ControllerAdvice` retornando ProblemDetails para 400, 404 e 500.
   - Cobertura de teste: MockMvc validando `Content-Type: application/problem+json`, `status`, `title`, `detail`, `instance` e `invalidParams` quando aplicavel.
 
-- [ ] `dev` - Garantir codigos HTTP do contrato: 201 criacao, 200 listagem/toggle, 204 delecao, 400 validacao, 404 inexistente, 500 erro inesperado.
+- [x] `dev` - Garantir codigos HTTP do contrato: 201 criacao, 200 listagem/toggle, 204 delecao, 400 validacao, 404 inexistente, 500 erro inesperado.
   - Cobertura de teste: `TaskControllerIT` cobrindo todos os codigos obrigatorios.
 
 - [ ] `qa` - Criar ou revisar `TaskControllerIT` com `@SpringBootTest`, `@AutoConfigureMockMvc` e H2 real.
