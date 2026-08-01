@@ -131,7 +131,7 @@
 - [x] `qa` - Cobrir validacao de titulo menor que 3 caracteres ponta a ponta.
   - Cobertura de teste: componente valida estado de erro; integracao backend valida HTTP 400 ProblemDetails.
 
-- [ ] `qa` - Rodar suite backend completa.
+- [x] `qa` - Rodar suite backend completa.
   - Cobertura de teste: `mvn test` no `/backend`.
 
 - [ ] `qa` - Rodar suite frontend completa.
