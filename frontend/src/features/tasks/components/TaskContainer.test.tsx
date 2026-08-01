@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createTask, deleteTask, listTasks, toggleTask } from '../api/tasks';
@@ -82,6 +82,39 @@ describe('TaskContainer', () => {
       expect(screen.queryByRole('article', { name: task.title })).not.toBeInTheDocument(),
     );
     expect(mockedDeleteTask).toHaveBeenCalledWith(task.id);
+  });
+
+  it('disables task creation while the request is pending and prevents duplicate submits', async () => {
+    const user = userEvent.setup();
+    const createdTask = { ...task, id: 2, title: 'Criacao sem duplicidade' };
+    let resolveCreate!: (value: Task) => void;
+    const pendingCreate = new Promise<Task>((resolve) => {
+      resolveCreate = resolve;
+    });
+    mockedListTasks.mockResolvedValueOnce([]);
+    mockedCreateTask.mockReturnValueOnce(pendingCreate);
+
+    render(<TaskContainer />);
+    await screen.findByRole('heading', { name: 'Tudo limpo por aqui!' });
+
+    const titleInput = screen.getByLabelText('Titulo da tarefa');
+    const addButton = screen.getByRole('button', { name: 'Adicionar' });
+    await user.type(titleInput, createdTask.title);
+    await user.click(addButton);
+
+    expect(titleInput).toBeDisabled();
+    expect(addButton).toBeDisabled();
+    await user.click(addButton);
+    expect(mockedCreateTask).toHaveBeenCalledTimes(1);
+
+    await act(async () => {
+      resolveCreate(createdTask);
+      await pendingCreate;
+    });
+
+    expect(await screen.findByText(createdTask.title)).toBeInTheDocument();
+    expect(titleInput).toBeEnabled();
+    expect(addButton).toBeEnabled();
   });
 
   it('renders the empty state when the API returns no tasks', async () => {

@@ -6,7 +6,8 @@ import { TaskItem } from './TaskItem';
 import { TaskSkeletonList } from './TaskSkeletonList';
 
 export function TaskContainer() {
-  const { tasks, loading, error, createTask, toggleTask, deleteTask, clearError } = useTasks();
+  const { tasks, loading, creating, error, createTask, toggleTask, deleteTask, clearError } =
+    useTasks();
 
   function handleCreateTask(title: string) {
     void createTask({ title }).catch(() => undefined);
@@ -29,7 +30,7 @@ export function TaskContainer() {
         <h1 id="task-form-title" className="mb-6 text-2xl font-semibold leading-tight md:text-3xl">
           Task Manager
         </h1>
-        <TaskInput onSubmit={handleCreateTask} disabled={loading} />
+        <TaskInput onSubmit={handleCreateTask} disabled={loading || creating} />
       </section>
 
       <section aria-labelledby="task-list-title" className="flex flex-col gap-4">

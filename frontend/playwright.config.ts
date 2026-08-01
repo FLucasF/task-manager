@@ -5,7 +5,7 @@ const devServerHost = process.env.VITE_DEV_SERVER_HOST ?? '127.0.0.1';
 const localBaseUrl = `http://${devServerHost}:${devServerPort}`;
 
 export default defineConfig({
-  testDir: './e2e',
+  testDir: './tests/e2e',
   fullyParallel: true,
   reporter: 'html',
   use: {
@@ -16,6 +16,13 @@ export default defineConfig({
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'mobile-firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        viewport: { width: 390, height: 844 },
+      },
     },
   ],
   webServer: {
