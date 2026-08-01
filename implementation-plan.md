@@ -90,31 +90,31 @@
 
 ## Fase 4 - Frontend UI, UX e A11y
 
-- [ ] `dev` - Criar container de tarefas responsavel por estado, chamadas do hook e composicao visual.
+- [x] `dev` - Criar container de tarefas responsavel por estado, chamadas do hook e composicao visual.
   - Cobertura de teste: componente/container com fetch inicial e renderizacao de lista.
 
-- [ ] `dev` - Criar `TaskInput` presentational com label associado por `htmlFor/id`, validacao visual e estados disabled/error.
+- [x] `dev` - Criar `TaskInput` presentational com label associado por `htmlFor/id`, validacao visual e estados disabled/error.
   - Cobertura de teste: Vitest + RTL para renderizacao, `userEvent`, disabled e `role="alert"`.
 
-- [ ] `dev` - Criar `TaskItem` presentational usando `<article>`, checkbox/botao acessiveis e `aria-label="Excluir tarefa"` no botao icon-only.
+- [x] `dev` - Criar `TaskItem` presentational usando `<article>`, checkbox/botao acessiveis e `aria-label="Excluir tarefa"` no botao icon-only.
   - Cobertura de teste: RTL validando titulo, checkbox, toggle, delete e nome acessivel.
 
-- [ ] `dev` - Implementar layout semantico com `<main>`, `<section>`, lista semantica e cards com superficies dark.
+- [x] `dev` - Implementar layout semantico com `<main>`, `<section>`, lista semantica e cards com superficies dark.
   - Cobertura de teste: RTL usando queries por role e checagem de landmarks principais.
 
-- [ ] `dev` - Implementar Skeleton Loaders no formato dos cards para fetch inicial, sem spinner fullscreen.
+- [x] `dev` - Implementar Skeleton Loaders no formato dos cards para fetch inicial, sem spinner fullscreen.
   - Cobertura de teste: RTL validando skeleton durante loading e ausencia apos carregamento.
 
-- [ ] `dev` - Implementar Empty State com icone/ilustracao sutil, titulo `Tudo limpo por aqui!` e texto de apoio.
+- [x] `dev` - Implementar Empty State com icone/ilustracao sutil, titulo `Tudo limpo por aqui!` e texto de apoio.
   - Cobertura de teste: RTL validando estado vazio quando API retorna lista vazia.
 
-- [ ] `dev` - Implementar Toast/Snackbar para erros de API com auto-dismiss, descarte manual, vermelho suave e `aria-live`.
+- [x] `dev` - Implementar Toast/Snackbar para erros de API com auto-dismiss, descarte manual, vermelho suave e `aria-live`.
   - Cobertura de teste: RTL com timers falsos para exibicao, descarte manual e auto-dismiss.
 
-- [ ] `dev` - Garantir foco por teclado com `focus-visible` ring de 2px, estados hover/active/disabled e `prefers-reduced-motion`.
+- [x] `dev` - Garantir foco por teclado com `focus-visible` ring de 2px, estados hover/active/disabled e `prefers-reduced-motion`.
   - Cobertura de teste: axe/manual checklist para a11y; Playwright pode validar navegacao por Tab no fluxo principal.
 
-- [ ] `qa` - Executar checklist de acessibilidade WCAG 2.1 AA para contraste, labels, botoes icon-only, live regions e reduced motion.
+- [x] `qa` - Executar checklist de acessibilidade WCAG 2.1 AA para contraste, labels, botoes icon-only, live regions e reduced motion.
   - Cobertura de teste: relatorio QA anexado ao PR; automatizar com Testing Library e Playwright onde praticavel.
 
 ## Fase 5 - E2E e Qualidade Integrada

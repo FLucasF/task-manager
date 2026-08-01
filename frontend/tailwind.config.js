@@ -10,6 +10,7 @@ export default {
           surfaceElevated: '#202020',
           surfaceHover: '#262626',
           border: '#333333',
+          controlBorder: '#737373',
           textPrimary: '#F5F5F5',
           textSecondary: '#C7C7C7',
           textMuted: '#9CA3AF',

@@ -57,6 +57,9 @@ describe('useTasks', () => {
 
     expect(result.current.tasks).toEqual([]);
     expect(result.current.error).toBe(error);
+
+    act(() => result.current.clearError());
+    expect(result.current.error).toBeNull();
   });
 
   it('creates, toggles and deletes tasks', async () => {
