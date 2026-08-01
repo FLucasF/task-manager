@@ -49,14 +49,14 @@ export function TaskInput({ onSubmit, disabled = false, error = null }: TaskInpu
           disabled={disabled}
           aria-invalid={Boolean(displayedError)}
           aria-describedby={displayedError ? 'task-title-error' : undefined}
-          className={`min-h-11 flex-1 rounded-md border bg-app-surfaceElevated px-4 py-2 text-app-textPrimary placeholder:text-app-textMuted disabled:cursor-not-allowed disabled:opacity-50 ${
+          className={`min-h-11 flex-1 rounded-md border bg-app-surfaceElevated px-4 py-2 text-app-textPrimary transition-colors duration-150 ease-out placeholder:text-app-textMuted hover:border-app-textMuted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accentHover focus-visible:ring-offset-2 focus-visible:ring-offset-app-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 ${
             displayedError ? 'border-app-danger' : 'border-app-border'
           }`}
         />
         <button
           type="submit"
           disabled={disabled}
-          className="min-h-11 rounded-md bg-app-accent px-4 py-2 text-sm font-medium text-black disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+          className="min-h-11 rounded-md bg-app-accent px-4 py-2 text-sm font-medium text-black transition-colors duration-150 ease-out hover:bg-app-accentHover active:bg-app-accentActive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-app-accentHover focus-visible:ring-offset-2 focus-visible:ring-offset-app-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
         >
           Adicionar
         </button>
