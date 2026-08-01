@@ -63,6 +63,7 @@ test('passes an axe audit and supports keyboard focus in the main flow', async (
   const titleInput = page.getByLabel('Titulo da tarefa');
   const addButton = page.getByRole('button', { name: 'Adicionar' });
   const checkbox = page.getByRole('checkbox');
+  const editButton = page.getByRole('button', { name: 'Editar tarefa' });
   const deleteButton = page.getByRole('button', { name: 'Excluir tarefa' });
 
   await page.keyboard.press('Tab');
@@ -80,6 +81,13 @@ test('passes an axe audit and supports keyboard focus in the main flow', async (
   await expect(checkbox).toBeFocused();
   await page.keyboard.press('Space');
   await expect(checkbox).toBeChecked();
+
+  await page.keyboard.press('Tab');
+  await expect(editButton).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.getByLabel(`Editar titulo da tarefa "${task.title}"`)).toBeFocused();
+  await page.keyboard.press('Escape');
+  await expect(editButton).toBeFocused();
 
   await page.keyboard.press('Tab');
   await expect(deleteButton).toBeFocused();

@@ -90,6 +90,39 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
   /api/tasks/{id}:
+    put:
+      tags:
+        - Tasks
+      summary: Atualiza o titulo de uma tarefa
+      operationId: updateTask
+      parameters:
+        - $ref: '#/components/parameters/TaskId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+            example:
+              title: Revisar contrato OpenAPI atualizado
+      responses:
+        '200':
+          description: Tarefa atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+              example:
+                id: 1
+                title: Revisar contrato OpenAPI atualizado
+                completed: false
+                createdAt: '2026-07-29T18:30:00Z'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
     delete:
       tags:
         - Tasks
@@ -161,6 +194,19 @@ components:
           pattern: '^(?=.*\S).{3,100}$'
           description: Titulo obrigatorio da tarefa. Equivalente a @NotBlank e @Size(min = 3, max = 100).
           example: Revisar contrato OpenAPI
+    UpdateTaskRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          minLength: 3
+          maxLength: 100
+          pattern: '^(?=.*\S).{3,100}$'
+          description: Novo titulo obrigatorio da tarefa. Equivalente a @NotBlank e @Size(min = 3, max = 100).
+          example: Revisar contrato OpenAPI atualizado
     InvalidParam:
       type: object
       additionalProperties: false

@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -99,6 +100,61 @@ class TaskControllerIT {
         .get()
         .extracting(Task::isCompleted)
         .isEqualTo(true);
+  }
+
+  @Test
+  void shouldUpdateTitleAndPreservePersistedTaskState() throws Exception {
+    var createdAt = Instant.parse("2026-07-29T18:30:00Z");
+    var task = taskRepository.saveAndFlush(
+        new Task(null, "Titulo original", true, createdAt));
+    var request = new UpdateTaskRequest("Titulo atualizado pela API");
+
+    mockMvc.perform(put("/api/tasks/{id}", task.getId())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isOk())
+        .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.id").value(task.getId()))
+        .andExpect(jsonPath("$.title").value("Titulo atualizado pela API"))
+        .andExpect(jsonPath("$.completed").value(true))
+        .andExpect(jsonPath("$.createdAt").value("2026-07-29T18:30:00Z"));
+
+    assertThat(taskRepository.findById(task.getId()))
+        .get()
+        .satisfies(updatedTask -> {
+          assertThat(updatedTask.getTitle()).isEqualTo("Titulo atualizado pela API");
+          assertThat(updatedTask.isCompleted()).isTrue();
+          assertThat(updatedTask.getCreatedAt()).isEqualTo(createdAt);
+        });
+  }
+
+  @Test
+  void shouldRejectInvalidUpdateWithoutChangingPersistedTask() throws Exception {
+    var task = taskRepository.saveAndFlush(new Task("Titulo original"));
+
+    mockMvc.perform(put("/api/tasks/{id}", task.getId())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(new UpdateTaskRequest("Ir"))))
+        .andExpect(status().isBadRequest())
+        .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+        .andExpect(jsonPath("$.status").value(400))
+        .andExpect(jsonPath("$.invalidParams[0].name").value("title"));
+
+    assertThat(taskRepository.findById(task.getId()))
+        .get()
+        .extracting(Task::getTitle)
+        .isEqualTo("Titulo original");
+  }
+
+  @Test
+  void shouldReturnNotFoundWhenUpdatingMissingTask() throws Exception {
+    mockMvc.perform(put("/api/tasks/{id}", 999L)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(
+                new UpdateTaskRequest("Titulo atualizado"))))
+        .andExpect(status().isNotFound())
+        .andExpect(content().contentType(MediaType.APPLICATION_PROBLEM_JSON))
+        .andExpect(jsonPath("$.status").value(404));
   }
 
   @Test

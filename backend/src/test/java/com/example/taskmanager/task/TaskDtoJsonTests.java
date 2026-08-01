@@ -41,4 +41,15 @@ class TaskDtoJsonTests {
 
     assertThat(request.title()).isEqualTo("Criar DTO de entrada");
   }
+
+  @Test
+  void shouldDeserializeUpdateTaskRequestFromContractJson() {
+    var request = objectMapper.readValue(
+        """
+        {"title":"Atualizar DTO de entrada"}
+        """,
+        UpdateTaskRequest.class);
+
+    assertThat(request.title()).isEqualTo("Atualizar DTO de entrada");
+  }
 }

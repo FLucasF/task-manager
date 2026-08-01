@@ -165,3 +165,8 @@
 
 - [x] `qa` - Confirmar cobertura minima por camada antes do aceite: service unitario, controller integracao, componentes frontend e E2E principal.
   - Cobertura de teste: checklist final com comandos executados e resultado.
+
+## Fase 7 - Edicao de Tarefas
+
+- [x] `dev` - Implementar edicao inline do titulo com `PUT /api/tasks/{id}`, preservando status e data de criacao para completar o CRUD.
+  - Cobertura de teste: service e controller com sucesso/400/404; Vitest para API, hook e componentes; Playwright na jornada criar -> editar -> concluir -> excluir em desktop e mobile.
