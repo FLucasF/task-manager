@@ -170,3 +170,8 @@
 
 - [x] `dev` - Implementar edicao inline do titulo com `PUT /api/tasks/{id}`, preservando status e data de criacao para completar o CRUD.
   - Cobertura de teste: service e controller com sucesso/400/404; Vitest para API, hook e componentes; Playwright na jornada criar -> editar -> concluir -> excluir em desktop e mobile.
+
+## Fase 8 - Documentacao Final
+
+- [x] `dev` - Criar o README principal com execucao local, API, testes, artefatos Spec-Driven e o uso real de agents, skills e AIOX no projeto.
+  - Cobertura de teste: validar links e comandos documentados; executar suites backend/frontend, lint e build antes da entrega.
