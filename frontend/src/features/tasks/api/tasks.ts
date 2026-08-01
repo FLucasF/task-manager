@@ -1,12 +1,6 @@
 import axios from 'axios';
 import { apiBaseUrl } from '../../../config';
-
-export type Task = {
-  id: number;
-  title: string;
-  completed: boolean;
-  createdAt: string;
-};
+import type { Task } from '../types';
 
 const api = axios.create({
   baseURL: apiBaseUrl || undefined,

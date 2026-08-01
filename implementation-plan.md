@@ -79,7 +79,7 @@
 - [x] `dev` - Reorganizar frontend por feature em `/src/features/tasks`.
   - Cobertura de teste: imports resolvidos por `npm run build` e testes existentes atualizados.
 
-- [ ] `dev` - Criar tipos TypeScript alinhados ao OpenAPI: `Task`, `CreateTaskRequest`, `ProblemDetails`.
+- [x] `dev` - Criar tipos TypeScript alinhados ao OpenAPI: `Task`, `CreateTaskRequest`, `ProblemDetails`.
   - Cobertura de teste: typecheck via `npm run build`.
 
 - [ ] `dev` - Criar API helper com Axios para list, create, toggle e delete.
