@@ -102,7 +102,7 @@
 - [x] `dev` - Implementar layout semantico com `<main>`, `<section>`, lista semantica e cards com superficies dark.
   - Cobertura de teste: RTL usando queries por role e checagem de landmarks principais.
 
-- [ ] `dev` - Implementar Skeleton Loaders no formato dos cards para fetch inicial, sem spinner fullscreen.
+- [x] `dev` - Implementar Skeleton Loaders no formato dos cards para fetch inicial, sem spinner fullscreen.
   - Cobertura de teste: RTL validando skeleton durante loading e ausencia apos carregamento.
 
 - [ ] `dev` - Implementar Empty State com icone/ilustracao sutil, titulo `Tudo limpo por aqui!` e texto de apoio.
