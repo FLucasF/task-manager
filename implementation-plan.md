@@ -53,7 +53,7 @@
 - [x] `dev` - Refatorar `TaskController` para depender de `TaskService` e expor somente DTOs.
   - Cobertura de teste: `TaskControllerIT` para `GET /api/tasks`, `POST /api/tasks`, `PATCH /api/tasks/{id}/toggle` e `DELETE /api/tasks/{id}`.
 
-- [ ] `dev` - Implementar `GlobalExceptionHandler` com `@ControllerAdvice` retornando ProblemDetails para 400, 404 e 500.
+- [x] `dev` - Implementar `GlobalExceptionHandler` com `@ControllerAdvice` retornando ProblemDetails para 400, 404 e 500.
   - Cobertura de teste: MockMvc validando `Content-Type: application/problem+json`, `status`, `title`, `detail`, `instance` e `invalidParams` quando aplicavel.
 
 - [ ] `dev` - Garantir codigos HTTP do contrato: 201 criacao, 200 listagem/toggle, 204 delecao, 400 validacao, 404 inexistente, 500 erro inesperado.
