@@ -11,6 +11,14 @@ Este arquivo define as instrucoes do projeto para o Codex CLI.
 4. Nao invente requisitos fora dos artefatos existentes
 <!-- AIOX-MANAGED-END: core -->
 
+## Task Delivery Workflow (NON-NEGOTIABLE)
+
+- Sempre que o usuario pedir para iniciar, continuar, implementar ou encerrar uma task do `implementation-plan.md`, carregue e siga automaticamente `.agents/skills/task-delivery-flow/SKILL.md`.
+- Nao exija que o usuario mencione `$task-delivery-flow`; a ativacao e obrigatoria neste repositorio.
+- Nao inicie uma nova task sem comprovar no remoto o merge da task anterior em `develop`.
+- Nao considere uma task entregue apenas com commit local: testes, commit, push e Pull Request para `develop` fazem parte do mesmo ciclo.
+- Depois de abrir o Pull Request, pare e aguarde o merge do usuario antes de seguir para a proxima task.
+
 <!-- AIOX-MANAGED-START: quality -->
 ## Quality Gates
 
