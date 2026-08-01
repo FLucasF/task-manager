@@ -76,7 +76,7 @@
 - [x] `dev` - Configurar tema Tailwind com tokens exigidos: `app.background: #121212`, superficies, textos, accent, danger e fonte sans.
   - Cobertura de teste: teste de componente ou snapshot leve pode validar classes principais no container raiz.
 
-- [ ] `dev` - Reorganizar frontend por feature em `/src/features/tasks`.
+- [x] `dev` - Reorganizar frontend por feature em `/src/features/tasks`.
   - Cobertura de teste: imports resolvidos por `npm run build` e testes existentes atualizados.
 
 - [ ] `dev` - Criar tipos TypeScript alinhados ao OpenAPI: `Task`, `CreateTaskRequest`, `ProblemDetails`.
