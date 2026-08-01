@@ -62,7 +62,7 @@
 - [x] `qa` - Criar ou revisar `TaskControllerIT` com `@SpringBootTest`, `@AutoConfigureMockMvc` e H2 real.
   - Cobertura de teste: persistencia real na base em memoria para criar, listar, alternar e excluir.
 
-- [ ] `qa` - Criar ou revisar `TaskServiceTest` com JUnit 5, Mockito, AssertJ e padrao AAA.
+- [x] `qa` - Criar ou revisar `TaskServiceTest` com JUnit 5, Mockito, AssertJ e padrao AAA.
   - Cobertura de teste: quatro cenarios obrigatorios definidos em `specs/3-testing-strategy.md`.
 
 ## Fase 3 - Frontend Setup e Arquitetura
