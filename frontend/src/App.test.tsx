@@ -28,8 +28,9 @@ describe('App', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { name: /task manager/i })).toBeInTheDocument();
-    expect(await screen.findByText(/frontend conectado ao backend/i)).toBeInTheDocument();
-    expect(screen.getByText('Conectar frontend ao backend')).toBeInTheDocument();
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(await screen.findByText('Conectar frontend ao backend')).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Lista de tarefas' })).toBeInTheDocument();
   });
 
   it('applies the main Tailwind theme classes to the application container', async () => {
@@ -40,6 +41,6 @@ describe('App', () => {
       'font-sans',
       'text-app-textPrimary',
     );
-    expect(await screen.findByText(/frontend conectado ao backend/i)).toBeInTheDocument();
+    expect(await screen.findByText('Conectar frontend ao backend')).toBeInTheDocument();
   });
 });

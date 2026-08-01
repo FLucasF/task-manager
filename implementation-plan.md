@@ -99,7 +99,7 @@
 - [x] `dev` - Criar `TaskItem` presentational usando `<article>`, checkbox/botao acessiveis e `aria-label="Excluir tarefa"` no botao icon-only.
   - Cobertura de teste: RTL validando titulo, checkbox, toggle, delete e nome acessivel.
 
-- [ ] `dev` - Implementar layout semantico com `<main>`, `<section>`, lista semantica e cards com superficies dark.
+- [x] `dev` - Implementar layout semantico com `<main>`, `<section>`, lista semantica e cards com superficies dark.
   - Cobertura de teste: RTL usando queries por role e checagem de landmarks principais.
 
 - [ ] `dev` - Implementar Skeleton Loaders no formato dos cards para fetch inicial, sem spinner fullscreen.

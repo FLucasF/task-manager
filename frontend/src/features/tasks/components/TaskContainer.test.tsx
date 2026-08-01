@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { listTasks } from '../api/tasks';
+import { createTask, deleteTask, listTasks, toggleTask } from '../api/tasks';
+import type { Task } from '../types';
 import { TaskContainer } from './TaskContainer';
 
 vi.mock('../api/tasks', () => ({
@@ -11,6 +13,16 @@ vi.mock('../api/tasks', () => ({
 }));
 
 const mockedListTasks = vi.mocked(listTasks);
+const mockedCreateTask = vi.mocked(createTask);
+const mockedToggleTask = vi.mocked(toggleTask);
+const mockedDeleteTask = vi.mocked(deleteTask);
+
+const task: Task = {
+  id: 1,
+  title: 'Compor a lista no container',
+  completed: false,
+  createdAt: '2026-08-01T19:30:00Z',
+};
 
 describe('TaskContainer', () => {
   beforeEach(() => {
@@ -18,21 +30,50 @@ describe('TaskContainer', () => {
   });
 
   it('loads tasks on mount and renders the task list', async () => {
-    mockedListTasks.mockResolvedValueOnce([
-      {
-        id: 1,
-        title: 'Compor a lista no container',
-        completed: false,
-        createdAt: '2026-08-01T19:30:00Z',
-      },
-    ]);
+    mockedListTasks.mockResolvedValueOnce([task]);
 
     render(<TaskContainer />);
 
+    expect(screen.getByRole('region', { name: 'Task Manager' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Lista de tarefas' })).toBeInTheDocument();
     expect(screen.getByText('Carregando tarefas da API...')).toBeInTheDocument();
     expect(await screen.findByText('Compor a lista no container')).toBeInTheDocument();
     expect(screen.getByRole('list')).toBeInTheDocument();
-    expect(screen.getByText('Pendente')).toBeInTheDocument();
+    expect(screen.getByRole('listitem')).toBeInTheDocument();
+    expect(screen.getByRole('article', { name: task.title })).toHaveClass('bg-app-surface');
     expect(screen.queryByText('Carregando tarefas da API...')).not.toBeInTheDocument();
+  });
+
+  it('connects create, toggle and delete actions to the task hook', async () => {
+    const user = userEvent.setup();
+    const createdTask = { ...task, id: 2, title: 'Nova tarefa integrada' };
+    const completedTask = { ...task, completed: true };
+    mockedListTasks.mockResolvedValueOnce([task]);
+    mockedCreateTask.mockResolvedValueOnce(createdTask);
+    mockedToggleTask.mockResolvedValueOnce(completedTask);
+    mockedDeleteTask.mockResolvedValueOnce();
+
+    render(<TaskContainer />);
+    await screen.findByText(task.title);
+
+    await user.type(screen.getByLabelText('Titulo da tarefa'), createdTask.title);
+    await user.click(screen.getByRole('button', { name: 'Adicionar' }));
+    expect(await screen.findByText(createdTask.title)).toBeInTheDocument();
+    expect(mockedCreateTask).toHaveBeenCalledWith({ title: createdTask.title });
+
+    await user.click(
+      screen.getByRole('checkbox', { name: `Marcar "${task.title}" como concluida` }),
+    );
+    expect(
+      await screen.findByRole('checkbox', { name: `Marcar "${task.title}" como pendente` }),
+    ).toBeChecked();
+    expect(mockedToggleTask).toHaveBeenCalledWith(task.id);
+
+    const taskArticle = screen.getByRole('article', { name: task.title });
+    await user.click(within(taskArticle).getByRole('button', { name: 'Excluir tarefa' }));
+    await waitFor(() =>
+      expect(screen.queryByRole('article', { name: task.title })).not.toBeInTheDocument(),
+    );
+    expect(mockedDeleteTask).toHaveBeenCalledWith(task.id);
   });
 });

@@ -32,7 +32,7 @@ export function TaskInput({ onSubmit, disabled = false, error = null }: TaskInpu
       <label className="text-sm font-medium text-app-textPrimary" htmlFor="task-title">
         Titulo da tarefa
       </label>
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-2 sm:flex-row">
         <input
           id="task-title"
           name="title"
@@ -56,7 +56,7 @@ export function TaskInput({ onSubmit, disabled = false, error = null }: TaskInpu
         <button
           type="submit"
           disabled={disabled}
-          className="min-h-11 rounded-md bg-app-accent px-4 py-2 text-sm font-medium text-black disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-h-11 rounded-md bg-app-accent px-4 py-2 text-sm font-medium text-black disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
         >
           Adicionar
         </button>
