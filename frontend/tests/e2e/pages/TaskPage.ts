@@ -23,11 +23,18 @@ export class TaskPage {
   }
 
   taskItem(title: string): Locator {
-    return this.page.getByRole('listitem').filter({ hasText: title });
+    return this.page.getByRole('article', { name: title, exact: true });
   }
 
   async toggleTask(title: string): Promise<void> {
     await this.taskItem(title).getByRole('checkbox').click();
+  }
+
+  async editTask(currentTitle: string, updatedTitle: string): Promise<void> {
+    await this.taskItem(currentTitle).getByRole('button', { name: 'Editar tarefa' }).click();
+    const editInput = this.page.getByLabel(`Editar titulo da tarefa "${currentTitle}"`);
+    await editInput.fill(updatedTitle);
+    await this.page.getByRole('button', { name: 'Salvar edicao' }).click();
   }
 
   async deleteTask(title: string): Promise<void> {

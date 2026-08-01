@@ -4,8 +4,9 @@ import {
   deleteTask as deleteTaskRequest,
   listTasks,
   toggleTask as toggleTaskRequest,
+  updateTask as updateTaskRequest,
 } from '../api/tasks';
-import type { CreateTaskRequest, Task } from '../types';
+import type { CreateTaskRequest, Task, UpdateTaskRequest } from '../types';
 
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -70,6 +71,21 @@ export function useTasks() {
     }
   }, []);
 
+  const updateTask = useCallback(async (id: number, request: UpdateTaskRequest) => {
+    setError(null);
+
+    try {
+      const updatedTask = await updateTaskRequest(id, request);
+      setTasks((currentTasks) =>
+        currentTasks.map((task) => (task.id === id ? updatedTask : task)),
+      );
+      return updatedTask;
+    } catch (requestError) {
+      setError(requestError);
+      throw requestError;
+    }
+  }, []);
+
   const deleteTask = useCallback(async (id: number) => {
     setError(null);
 
@@ -93,6 +109,7 @@ export function useTasks() {
     error,
     createTask,
     toggleTask,
+    updateTask,
     deleteTask,
     clearError,
   };

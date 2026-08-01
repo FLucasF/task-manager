@@ -62,4 +62,8 @@ public class Task {
   public void toggleCompleted() {
     completed = !completed;
   }
+
+  public void updateTitle(String title) {
+    this.title = title;
+  }
 }

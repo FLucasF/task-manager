@@ -6,8 +6,17 @@ import { TaskItem } from './TaskItem';
 import { TaskSkeletonList } from './TaskSkeletonList';
 
 export function TaskContainer() {
-  const { tasks, loading, creating, error, createTask, toggleTask, deleteTask, clearError } =
-    useTasks();
+  const {
+    tasks,
+    loading,
+    creating,
+    error,
+    createTask,
+    toggleTask,
+    updateTask,
+    deleteTask,
+    clearError,
+  } = useTasks();
 
   function handleCreateTask(title: string) {
     void createTask({ title }).catch(() => undefined);
@@ -15,6 +24,10 @@ export function TaskContainer() {
 
   function handleToggleTask(id: number) {
     void toggleTask(id).catch(() => undefined);
+  }
+
+  async function handleUpdateTask(id: number, title: string) {
+    await updateTask(id, { title });
   }
 
   function handleDeleteTask(id: number) {
@@ -46,6 +59,7 @@ export function TaskContainer() {
                 <TaskItem
                   task={task}
                   onToggle={handleToggleTask}
+                  onUpdate={handleUpdateTask}
                   onDelete={handleDeleteTask}
                 />
               </li>

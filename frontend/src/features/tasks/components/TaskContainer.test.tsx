@@ -1,7 +1,7 @@
 import { act, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createTask, deleteTask, listTasks, toggleTask } from '../api/tasks';
+import { createTask, deleteTask, listTasks, toggleTask, updateTask } from '../api/tasks';
 import type { Task } from '../types';
 import { TaskContainer } from './TaskContainer';
 
@@ -9,12 +9,14 @@ vi.mock('../api/tasks', () => ({
   listTasks: vi.fn(),
   createTask: vi.fn(),
   toggleTask: vi.fn(),
+  updateTask: vi.fn(),
   deleteTask: vi.fn(),
 }));
 
 const mockedListTasks = vi.mocked(listTasks);
 const mockedCreateTask = vi.mocked(createTask);
 const mockedToggleTask = vi.mocked(toggleTask);
+const mockedUpdateTask = vi.mocked(updateTask);
 const mockedDeleteTask = vi.mocked(deleteTask);
 
 const task: Task = {
@@ -51,12 +53,14 @@ describe('TaskContainer', () => {
     expect(screen.queryAllByTestId('task-skeleton')).toHaveLength(0);
   });
 
-  it('connects create, toggle and delete actions to the task hook', async () => {
+  it('connects create, update, toggle and delete actions to the task hook', async () => {
     const user = userEvent.setup();
     const createdTask = { ...task, id: 2, title: 'Nova tarefa integrada' };
-    const completedTask = { ...task, completed: true };
+    const updatedTask = { ...task, title: 'Tarefa editada no container' };
+    const completedTask = { ...updatedTask, completed: true };
     mockedListTasks.mockResolvedValueOnce([task]);
     mockedCreateTask.mockResolvedValueOnce(createdTask);
+    mockedUpdateTask.mockResolvedValueOnce(updatedTask);
     mockedToggleTask.mockResolvedValueOnce(completedTask);
     mockedDeleteTask.mockResolvedValueOnce();
 
@@ -68,18 +72,27 @@ describe('TaskContainer', () => {
     expect(await screen.findByText(createdTask.title)).toBeInTheDocument();
     expect(mockedCreateTask).toHaveBeenCalledWith({ title: createdTask.title });
 
+    const originalArticle = screen.getByRole('article', { name: task.title });
+    await user.click(within(originalArticle).getByRole('button', { name: 'Editar tarefa' }));
+    const editInput = screen.getByLabelText(`Editar titulo da tarefa "${task.title}"`);
+    await user.clear(editInput);
+    await user.type(editInput, updatedTask.title);
+    await user.click(screen.getByRole('button', { name: 'Salvar edicao' }));
+    expect(await screen.findByText(updatedTask.title)).toBeInTheDocument();
+    expect(mockedUpdateTask).toHaveBeenCalledWith(task.id, { title: updatedTask.title });
+
     await user.click(
-      screen.getByRole('checkbox', { name: `Marcar "${task.title}" como concluida` }),
+      screen.getByRole('checkbox', { name: `Marcar "${updatedTask.title}" como concluida` }),
     );
     expect(
-      await screen.findByRole('checkbox', { name: `Marcar "${task.title}" como pendente` }),
+      await screen.findByRole('checkbox', { name: `Marcar "${updatedTask.title}" como pendente` }),
     ).toBeChecked();
     expect(mockedToggleTask).toHaveBeenCalledWith(task.id);
 
-    const taskArticle = screen.getByRole('article', { name: task.title });
+    const taskArticle = screen.getByRole('article', { name: updatedTask.title });
     await user.click(within(taskArticle).getByRole('button', { name: 'Excluir tarefa' }));
     await waitFor(() =>
-      expect(screen.queryByRole('article', { name: task.title })).not.toBeInTheDocument(),
+      expect(screen.queryByRole('article', { name: updatedTask.title })).not.toBeInTheDocument(),
     );
     expect(mockedDeleteTask).toHaveBeenCalledWith(task.id);
   });

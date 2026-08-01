@@ -5,6 +5,7 @@ import {
   deleteTask as deleteTaskRequest,
   listTasks,
   toggleTask as toggleTaskRequest,
+  updateTask as updateTaskRequest,
 } from '../api/tasks';
 import type { Task } from '../types';
 import { useTasks } from './useTasks';
@@ -13,12 +14,14 @@ vi.mock('../api/tasks', () => ({
   listTasks: vi.fn(),
   createTask: vi.fn(),
   toggleTask: vi.fn(),
+  updateTask: vi.fn(),
   deleteTask: vi.fn(),
 }));
 
 const mockedListTasks = vi.mocked(listTasks);
 const mockedCreateTask = vi.mocked(createTaskRequest);
 const mockedToggleTask = vi.mocked(toggleTaskRequest);
+const mockedUpdateTask = vi.mocked(updateTaskRequest);
 const mockedDeleteTask = vi.mocked(deleteTaskRequest);
 
 const task: Task = {
@@ -62,10 +65,12 @@ describe('useTasks', () => {
     expect(result.current.error).toBeNull();
   });
 
-  it('creates, toggles and deletes tasks', async () => {
-    const completedTask = { ...task, completed: true };
+  it('creates, updates, toggles and deletes tasks', async () => {
+    const updatedTask = { ...task, title: 'Titulo atualizado no hook' };
+    const completedTask = { ...updatedTask, completed: true };
     mockedListTasks.mockResolvedValueOnce([]);
     mockedCreateTask.mockResolvedValueOnce(task);
+    mockedUpdateTask.mockResolvedValueOnce(updatedTask);
     mockedToggleTask.mockResolvedValueOnce(completedTask);
     mockedDeleteTask.mockResolvedValueOnce();
 
@@ -76,6 +81,11 @@ describe('useTasks', () => {
       await result.current.createTask({ title: task.title });
     });
     expect(result.current.tasks).toEqual([task]);
+
+    await act(async () => {
+      await result.current.updateTask(task.id, { title: updatedTask.title });
+    });
+    expect(result.current.tasks).toEqual([updatedTask]);
 
     await act(async () => {
       await result.current.toggleTask(task.id);
@@ -90,10 +100,12 @@ describe('useTasks', () => {
 
   it('stores mutation errors without changing the current tasks', async () => {
     const createError = new Error('Create failed');
+    const updateError = new Error('Update failed');
     const toggleError = new Error('Toggle failed');
     const deleteError = new Error('Delete failed');
     mockedListTasks.mockResolvedValueOnce([task]);
     mockedCreateTask.mockRejectedValueOnce(createError);
+    mockedUpdateTask.mockRejectedValueOnce(updateError);
     mockedToggleTask.mockRejectedValueOnce(toggleError);
     mockedDeleteTask.mockRejectedValueOnce(deleteError);
 
@@ -104,6 +116,14 @@ describe('useTasks', () => {
       await expect(result.current.createTask({ title: 'Nova tarefa' })).rejects.toBe(createError);
     });
     expect(result.current.error).toBe(createError);
+    expect(result.current.tasks).toEqual([task]);
+
+    await act(async () => {
+      await expect(
+        result.current.updateTask(task.id, { title: 'Titulo atualizado' }),
+      ).rejects.toBe(updateError);
+    });
+    expect(result.current.error).toBe(updateError);
     expect(result.current.tasks).toEqual([task]);
 
     await act(async () => {

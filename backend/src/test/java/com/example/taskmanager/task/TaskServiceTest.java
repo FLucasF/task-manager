@@ -105,6 +105,45 @@ class TaskServiceTest {
   }
 
   @Test
+  void shouldUpdateTitleAndPreserveTaskStateWhenTaskExists() {
+    var createdAt = Instant.parse("2026-07-29T20:15:00Z");
+    var task = new Task(1L, "Titulo original", true, createdAt);
+    when(taskRepository.findById(1L)).thenReturn(Optional.of(task));
+    when(taskRepository.save(task)).thenReturn(task);
+
+    var result = taskService.update(1L, new UpdateTaskRequest("Titulo atualizado"));
+
+    assertThat(result).isEqualTo(
+        new TaskResponse(1L, "Titulo atualizado", true, createdAt));
+    assertThat(task.getTitle()).isEqualTo("Titulo atualizado");
+    assertThat(task.isCompleted()).isTrue();
+    assertThat(task.getCreatedAt()).isEqualTo(createdAt);
+    verify(taskRepository).save(task);
+  }
+
+  @Test
+  void shouldRejectUpdateWhenTitleIsInvalid() {
+    var request = new UpdateTaskRequest("Ir");
+
+    assertThatThrownBy(() -> taskService.update(1L, request))
+        .isInstanceOf(ConstraintViolationException.class);
+    verify(taskRepository, never()).findById(any());
+    verify(taskRepository, never()).save(any(Task.class));
+  }
+
+  @Test
+  void shouldThrowResourceNotFoundExceptionWhenUpdatingMissingTask() {
+    when(taskRepository.findById(99L)).thenReturn(Optional.empty());
+
+    assertThatThrownBy(() -> taskService.update(
+        99L,
+        new UpdateTaskRequest("Titulo atualizado")))
+        .isInstanceOf(ResourceNotFoundException.class)
+        .hasMessage("Task with id 99 was not found.");
+    verify(taskRepository, never()).save(any(Task.class));
+  }
+
+  @Test
   void shouldThrowResourceNotFoundExceptionWhenDeletingMissingTask() {
     when(taskRepository.findById(99L)).thenReturn(Optional.empty());
 

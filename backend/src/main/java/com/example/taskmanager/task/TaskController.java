@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -37,6 +38,13 @@ public class TaskController {
   @PatchMapping("/{id}/toggle")
   public TaskResponse toggleTask(@PathVariable Long id) {
     return taskService.toggle(id);
+  }
+
+  @PutMapping("/{id}")
+  public TaskResponse updateTask(
+      @PathVariable Long id,
+      @Valid @RequestBody UpdateTaskRequest request) {
+    return taskService.update(id, request);
   }
 
   @DeleteMapping("/{id}")

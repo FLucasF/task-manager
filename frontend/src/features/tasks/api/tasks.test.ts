@@ -5,6 +5,7 @@ const { apiMock } = vi.hoisted(() => ({
   apiMock: {
     get: vi.fn(),
     post: vi.fn(),
+    put: vi.fn(),
     patch: vi.fn(),
     delete: vi.fn(),
   },
@@ -16,7 +17,7 @@ vi.mock('axios', () => ({
   },
 }));
 
-import { createTask, deleteTask, listTasks, toggleTask } from './tasks';
+import { createTask, deleteTask, listTasks, toggleTask, updateTask } from './tasks';
 
 const task: Task = {
   id: 1,
@@ -51,6 +52,15 @@ describe('task API helper', () => {
 
     await expect(toggleTask(1)).resolves.toEqual(completedTask);
     expect(apiMock.patch).toHaveBeenCalledWith('/api/tasks/1/toggle');
+  });
+
+  it('updates a task title', async () => {
+    const request = { title: 'Titulo atualizado' };
+    const updatedTask = { ...task, title: request.title };
+    apiMock.put.mockResolvedValueOnce({ data: updatedTask });
+
+    await expect(updateTask(1, request)).resolves.toEqual(updatedTask);
+    expect(apiMock.put).toHaveBeenCalledWith('/api/tasks/1', request);
   });
 
   it('deletes a task', async () => {
