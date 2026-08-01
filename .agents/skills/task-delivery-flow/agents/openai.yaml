@@ -1,0 +1,7 @@
+interface:
+  display_name: "Task Delivery Flow"
+  short_description: "Entrega atomica de tasks com testes e PR"
+  default_prompt: "Use $task-delivery-flow para implementar e entregar a proxima task do projeto."
+
+policy:
+  allow_implicit_invocation: true

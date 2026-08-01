@@ -53,16 +53,16 @@
 - [x] `dev` - Refatorar `TaskController` para depender de `TaskService` e expor somente DTOs.
   - Cobertura de teste: `TaskControllerIT` para `GET /api/tasks`, `POST /api/tasks`, `PATCH /api/tasks/{id}/toggle` e `DELETE /api/tasks/{id}`.
 
-- [ ] `dev` - Implementar `GlobalExceptionHandler` com `@ControllerAdvice` retornando ProblemDetails para 400, 404 e 500.
+- [x] `dev` - Implementar `GlobalExceptionHandler` com `@ControllerAdvice` retornando ProblemDetails para 400, 404 e 500.
   - Cobertura de teste: MockMvc validando `Content-Type: application/problem+json`, `status`, `title`, `detail`, `instance` e `invalidParams` quando aplicavel.
 
-- [ ] `dev` - Garantir codigos HTTP do contrato: 201 criacao, 200 listagem/toggle, 204 delecao, 400 validacao, 404 inexistente, 500 erro inesperado.
+- [x] `dev` - Garantir codigos HTTP do contrato: 201 criacao, 200 listagem/toggle, 204 delecao, 400 validacao, 404 inexistente, 500 erro inesperado.
   - Cobertura de teste: `TaskControllerIT` cobrindo todos os codigos obrigatorios.
 
-- [ ] `qa` - Criar ou revisar `TaskControllerIT` com `@SpringBootTest`, `@AutoConfigureMockMvc` e H2 real.
+- [x] `qa` - Criar ou revisar `TaskControllerIT` com `@SpringBootTest`, `@AutoConfigureMockMvc` e H2 real.
   - Cobertura de teste: persistencia real na base em memoria para criar, listar, alternar e excluir.
 
-- [ ] `qa` - Criar ou revisar `TaskServiceTest` com JUnit 5, Mockito, AssertJ e padrao AAA.
+- [x] `qa` - Criar ou revisar `TaskServiceTest` com JUnit 5, Mockito, AssertJ e padrao AAA.
   - Cobertura de teste: quatro cenarios obrigatorios definidos em `specs/3-testing-strategy.md`.
 
 ## Fase 3 - Frontend Setup e Arquitetura
