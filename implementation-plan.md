@@ -82,7 +82,7 @@
 - [x] `dev` - Criar tipos TypeScript alinhados ao OpenAPI: `Task`, `CreateTaskRequest`, `ProblemDetails`.
   - Cobertura de teste: typecheck via `npm run build`.
 
-- [ ] `dev` - Criar API helper com Axios para list, create, toggle e delete.
+- [x] `dev` - Criar API helper com Axios para list, create, toggle e delete.
   - Cobertura de teste: mock de Axios ou MSW para sucesso e erro, se infraestrutura for adicionada; caso contrario cobrir via hook.
 
 - [ ] `dev` - Criar hook `useTasks()` encapsulando fetch inicial, loading, erro, create, toggle e delete.
