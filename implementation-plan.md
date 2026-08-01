@@ -67,25 +67,25 @@
 
 ## Fase 3 - Frontend Setup e Arquitetura
 
-- [ ] `dev` - Instalar no `/frontend` as dependencias `tailwindcss`, `postcss` e `autoprefixer`.
+- [x] `dev` - Instalar no `/frontend` as dependencias `tailwindcss`, `postcss` e `autoprefixer`.
   - Cobertura de teste: `npm run build` deve compilar CSS sem erros.
 
-- [ ] `dev` - Criar `tailwind.config.js`, `postcss.config.js` e integrar diretivas Tailwind no CSS global.
+- [x] `dev` - Criar `tailwind.config.js`, `postcss.config.js` e integrar diretivas Tailwind no CSS global.
   - Cobertura de teste: build deve reconhecer classes Tailwind e preservar background `#121212`.
 
-- [ ] `dev` - Configurar tema Tailwind com tokens exigidos: `app.background: #121212`, superficies, textos, accent, danger e fonte sans.
+- [x] `dev` - Configurar tema Tailwind com tokens exigidos: `app.background: #121212`, superficies, textos, accent, danger e fonte sans.
   - Cobertura de teste: teste de componente ou snapshot leve pode validar classes principais no container raiz.
 
-- [ ] `dev` - Reorganizar frontend por feature em `/src/features/tasks`.
+- [x] `dev` - Reorganizar frontend por feature em `/src/features/tasks`.
   - Cobertura de teste: imports resolvidos por `npm run build` e testes existentes atualizados.
 
-- [ ] `dev` - Criar tipos TypeScript alinhados ao OpenAPI: `Task`, `CreateTaskRequest`, `ProblemDetails`.
+- [x] `dev` - Criar tipos TypeScript alinhados ao OpenAPI: `Task`, `CreateTaskRequest`, `ProblemDetails`.
   - Cobertura de teste: typecheck via `npm run build`.
 
-- [ ] `dev` - Criar API helper com Axios para list, create, toggle e delete.
+- [x] `dev` - Criar API helper com Axios para list, create, toggle e delete.
   - Cobertura de teste: mock de Axios ou MSW para sucesso e erro, se infraestrutura for adicionada; caso contrario cobrir via hook.
 
-- [ ] `dev` - Criar hook `useTasks()` encapsulando fetch inicial, loading, erro, create, toggle e delete.
+- [x] `dev` - Criar hook `useTasks()` encapsulando fetch inicial, loading, erro, create, toggle e delete.
   - Cobertura de teste: teste unitario/hook ou componente container validando loading, sucesso e erro de API.
 
 ## Fase 4 - Frontend UI, UX e A11y

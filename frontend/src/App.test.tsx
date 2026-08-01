@@ -1,10 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import App from './App';
-import { listTasks } from './api/tasks';
+import { listTasks } from './features/tasks/api/tasks';
 
-vi.mock('./api/tasks', () => ({
+vi.mock('./features/tasks/api/tasks', () => ({
   listTasks: vi.fn(),
+  createTask: vi.fn(),
+  toggleTask: vi.fn(),
+  deleteTask: vi.fn(),
 }));
 
 const mockedListTasks = vi.mocked(listTasks);
@@ -27,5 +30,16 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /task manager/i })).toBeInTheDocument();
     expect(await screen.findByText(/frontend conectado ao backend/i)).toBeInTheDocument();
     expect(screen.getByText('Conectar frontend ao backend')).toBeInTheDocument();
+  });
+
+  it('applies the main Tailwind theme classes to the application container', async () => {
+    render(<App />);
+
+    expect(screen.getByRole('main')).toHaveClass(
+      'bg-app-background',
+      'font-sans',
+      'text-app-textPrimary',
+    );
+    expect(await screen.findByText(/frontend conectado ao backend/i)).toBeInTheDocument();
   });
 });

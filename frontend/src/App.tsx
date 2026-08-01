@@ -1,41 +1,18 @@
-import { useEffect, useState } from 'react';
 import './App.css';
-import { listTasks, type Task } from './api/tasks';
+import { useTasks } from './features/tasks/hooks/useTasks';
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
-
-  useEffect(() => {
-    let isMounted = true;
-
-    listTasks()
-      .then((items) => {
-        if (isMounted) {
-          setTasks(items);
-          setStatus('ready');
-        }
-      })
-      .catch(() => {
-        if (isMounted) {
-          setStatus('error');
-        }
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const { tasks, loading, error } = useTasks();
 
   return (
-    <main className="app-shell">
+    <main className="app-shell min-h-screen bg-app-background font-sans text-app-textPrimary">
       <section className="app-panel">
         <h1>Task Manager</h1>
-        {status === 'loading' && <p>Carregando tarefas da API...</p>}
-        {status === 'error' && (
+        {loading && <p>Carregando tarefas da API...</p>}
+        {Boolean(error) && (
           <p role="alert">Nao foi possivel conectar ao backend em /api/tasks.</p>
         )}
-        {status === 'ready' && (
+        {!loading && !error && (
           <>
             <p>Frontend conectado ao backend: {tasks.length} tarefa(s) carregada(s).</p>
             <ul className="task-list">
